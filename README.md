@@ -1,5 +1,5 @@
 # twa-template
-> Starter template for a new TWA interacting with the TON blockchain 
+> Starter template for a new TWA interacting with the TON blockchain.
 
 # Overview
 The project is highly-opinionated, and there are many other alternate routes it could have taken. Some examples:
