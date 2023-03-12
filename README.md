@@ -1,42 +1,64 @@
-# twa-template
-> Starter template for a new TWA interacting with the TON blockchain.
+**Drop your TONs to your Telegram group friends.**   
+<br/>
+Telegram group members can pick up the TONs you dropped. Through this, they can pick up some of the amount you set on a first-come, first-served basis. If the members succeeds in picking it up, they can check Tonator’s profile and the amount they will receive. The amount is divided regardless of order.   
+<br/><br/><br/>
 
-# Overview
-The project is highly-opinionated, and there are many other alternate routes it could have taken. Some examples:
-- Supports Ton Connect 2 wallets
-- Uses vite with react (alternative to create-react-app)
-- Uses the `ton` npm package
+### What is Tonate?  
+<br/>
+It’s on Me. TONs on You.
+<br/><br/>
 
-# Prerequesities
-* Node.js v16 (other versions may work, needs more testing)
-* A TON Connect compatible wallet (e.g. [Tonkeeper](https://tonkeeper.com/))
+- **The Sender** drops TON in the Telegram group using the Telegram web app/chatbot. The sender can decide whether to disclose or not. It decide that the amount that the Receiver receives is open to others.   
+<br/>
+- **The Receiver** picks up some amount of the dropped TONs on a first-come, first-served basis. However, the amount is divi`d`ed randomly among all recipients regardless of the order of pickup.   
+<br/>
+- **If the receiver doesn't have a wallet,** he/she can create a TON keeper private key through the web app/chatbot, and connect your wallet with it to receive TON    
+<br/>
+- **Ranking System** - You can check the ranking of Ton Sender and Receiver on the web app to see who received more than you.   
+<br/><br/>
 
-# What does this repo contain?
-* A react-based TWA-ready app, interacting with TON
-* Github actions set to deploy app to github pages
-* A script to connect a telegram bot to the deployed app
+# Why Tonate?
+# 
+<br/>
+**1. Community, for Activation**
+<br/> 
+You can activate a Telegram group community by dropping TONs in real time.
+<br/><br/>
+1. **Users, for fun-**
+<br/> 
+If something good happens, share it with your friends. Even if you don't know the other person's address, you can drop the money through Telegram chat. Even those who don't have a wallet can receive the money that was dropped by linking TON Keeper through the web app/ chatbot.
+<br/><br/>
+1. **dApps, for user Onboarding -** 
+<br/>
+Even Web 2 users can quickly flow into the service if they succeed in picking up dropped TONs .
+<br/><br/>
 
-# How to use
-1. Create a template from this repo with the "Use this template" button
-   1. Choose a name for your repo
-   2. Important! mark "Include all branches", otherwise github pages deployment will not work.
-   ![image](https://user-images.githubusercontent.com/5641469/191731317-14e742fd-accb-47d4-a794-fad01148a377.png) 
+# User Stories
+# <br/>
+**The Sender(Tonator)**
 
-2. Clone this repo and run `yarn`
+1. Connect wallets and buy TONs that you want to drop(tonate).<br/>
+2. Determine the amount to be dropped, the way of dropping(random or split), the number of people, and whether to disclose it.<br/>
+3. After dropping the TONs, collect it after a certain period of time<br/><br/><br/>
+    
+**The Receiver**<br/>
+1. Pick up the sender’s dropped TONs. 
+<br/>
+1. Create a TON Keeper through Chatbot or WebApp in the Telegram chat room.
+<br/>
+1. Connect the wallet and claim the dropped TONs.
+<br/>  
+<br/>
 
-3. Create a new bot with [botfather](https://t.me/botfather)
-   1. Type `/newbot`
-   2. Choose a name for your bot, e.g. `My Ton TWA`
-   3. Choose a username for your bot, e.g. `my_ton_twa_482765_bot`
-   4. Take note of the access token, e.g. `5712441624:AAHmiHvwrrju1F3h29rlVOZLRLnv-B8ZZZ`
-   5. Run `yarn configbot` to link your bot to the webapp
 
-# Development
-1. Run `npm run dev` and edit the code as needed
-2. On push to the `main` branch, the app will be automatically deployed via github actions.
-
-# Roadmap
-- [ ] Jetton transfer support
-
-# License
-MIT
+# Future Developments
+<br/>
+- **Paying for receiver’s gas fee** - With this function, the recipient can claim even if there is no gas fee in the receiver’s wallet.
+<br/>
+- **Watch To Get** - Users can view an ad and then acquire a token.<br/>
+- **Support another chain’s Token** - We will support various kinds of tokens
+<br/>
+- **Time Limit** - Allow money to automatically return to the Sender’s account after a certain period of time.
+<br/>
+- **Messaging**- Users allows you to mix messages when dropping TON.
+<br/>
