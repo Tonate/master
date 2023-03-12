@@ -1,58 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import { TonConnectButton } from '@tonconnect/ui-react';
-import { useTonateContract } from './hooks/userTonateContract';
-import { useTonConnect } from './hooks/useTonConnect';
+import "./App.css";
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import { TonatePage } from "./components/TonatePage";
+import "@twa-dev/sdk";
 
 function App() {
-  const {connected} = useTonConnect();
-  const {value, address, tonateEat, withrawAll, sendMoney} = useTonateContract();
-
   return (
-    <div className='App'>
-      <div className='Container'>
-        <TonConnectButton />
-
-        <div className='Card'>
-          <b>Tonate Address</b>
-          <div className='Hint'>{address?.slice(0, 30) + '...'}</div>
-        </div>
-
-        <div className='Card'>
-          <b>Eatable Balance</b>
-          <div>{value ?? 'Loading...'}</div>
-        </div>
-
-        <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
-          onClick= {() => {
-            tonateEat();
-          }}
-          >
-            Eat Ton
-          </a>
-
-        <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
-          onClick= {() => {
-            sendMoney();
-          }}
-          >
-            Send Money ( 0.02 TON )
-          </a>
-        <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
-          onClick= {() => {
-            withrawAll();
-          }}
-          >
-            Withdraw All
-          </a>
-
-      </div>
+    <div className="app">
+      <TonatePage></TonatePage>
     </div>
-    );
+  );
 }
 
-export default App
+export default App;
