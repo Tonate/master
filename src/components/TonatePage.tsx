@@ -1,5 +1,5 @@
-import { MemberInfo, TonateInfo } from "../types";
-import { MemberInfoBox } from "./MemberInfoBox";
+import { WalletInfo, TonateInfo } from "../types";
+import { WalletInfoBox } from "./WalletInfoBox";
 import { RankingList } from "./RankingList";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { Button } from "./styled/styled";
@@ -14,7 +14,7 @@ interface TonatePageProps {}
 export function TonatePage<TonatePageProps>() {
   const connector = useTonConnect();
 
-  const memberInfo: MemberInfo = {
+  const walletInfo: WalletInfo = {
     totalBalance: 123.1,
     dollar: 369.3,
     tonateHistoryList: [1, 2],
@@ -31,7 +31,7 @@ export function TonatePage<TonatePageProps>() {
       <span className={styles.title}>TONate</span>
 
       {connector.network ? (
-        <MemberInfoBox memberInfo={memberInfo}></MemberInfoBox>
+        <WalletInfoBox walletInfo={walletInfo} />
       ) : (
         <LoginBox></LoginBox>
       )}
