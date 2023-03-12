@@ -1,5 +1,17 @@
 :root {
-  --tg-theme-bg-color: #efeff3;
-  --tg-theme-button-color: #2eaddc;
-  --tg-theme-button-text-color: white;
+  --font-color-default: white;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.app {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  color: var(--font-color-default);
 }
