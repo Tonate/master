@@ -15,7 +15,7 @@ export default class Tonate implements Contract {
 
   async sendDeploy(provider: ContractProvider, via: Sender) {
     await provider.internal(via, {
-      value: "0.02", // send 0.02 TON to contract for rent
+      value: "0.02", // send 0.01 TON to contract for rent
       bounce: false
     });
   }
@@ -25,14 +25,19 @@ export default class Tonate implements Contract {
     return stack.readBigNumber();
   }
 
-  async getAddress(provider: ContractProvider) {
+  async getCounter(provider: ContractProvider) {
+    const { stack } = await provider.get("counter", []);
+    return stack.readBigNumber();
+  }
+
+  async getOwnerAddress(provider: ContractProvider) {
     const { stack } = await provider.get("address", []);
     return stack.readAddress();
   }
 
-  async sendEat(provider: ContractProvider, via: Sender) {
+  async sendReceiveTon(provider: ContractProvider, via: Sender) {
     const messageBody = beginCell()
-      .storeUint(1, 32) // op (op #1 = Eat)
+      .storeUint(1, 32) // op (op #1 = increment)
       .storeUint(0, 64) // query id
       .endCell();
     await provider.internal(via, {
@@ -43,7 +48,7 @@ export default class Tonate implements Contract {
 
   async sendWithdrawAll(provider: ContractProvider, via: Sender) {
     const messageBody = beginCell()
-      .storeUint(2, 32) // op (op #2 = Withdraw)
+      .storeUint(2, 32) // op (op #1 = increment)
       .storeUint(0, 64) // query id
       .endCell();
     await provider.internal(via, {
@@ -57,5 +62,4 @@ export default class Tonate implements Contract {
       value: "0.02"
     });
   }
-
 }
