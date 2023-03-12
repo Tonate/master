@@ -1,7 +1,7 @@
 import { WalletInfo, TonateInfo } from "../types";
 import { WalletInfoBox } from "./WalletInfoBox";
 import { RankingList } from "./RankingList";
-import { TonConnectButton } from "@tonconnect/ui-react";
+import { useTonWallet } from "@tonconnect/ui-react";
 import { Button } from "./styled/styled";
 import { useTonConnect } from "../hooks/useTonConnect";
 import TonConnect from "@tonconnect/sdk";
@@ -13,6 +13,7 @@ interface TonatePageProps {}
 
 export function TonatePage<TonatePageProps>() {
   const connector = useTonConnect();
+  const wallet = useTonWallet();
 
   const walletInfo: WalletInfo = {
     totalBalance: 123.1,
@@ -30,7 +31,7 @@ export function TonatePage<TonatePageProps>() {
     <div className={styles.tonatePage}>
       <span className={styles.title}>TONate</span>
 
-      {connector.network ? (
+      {wallet?.account.chain ? (
         <WalletInfoBox walletInfo={walletInfo} />
       ) : (
         <LoginBox></LoginBox>
