@@ -8,7 +8,7 @@ async function main() {
   const client = new TonClient({ endpoint });
 
   // open Counter instance by address
-  const tonateAddress = Address.parse("EQDq2k_egGfp7drL12nBp_pMCQocddIM-2HImmtJHD01Te5l"); // replace with your address from step 8
+  const tonateAddress = Address.parse("EQDq2k_egGfp7drL12nBp_pMCQocddIM-2HImmtJHD01Te5l");
   const tonate = new Tonate(tonateAddress);
   const tonateContract = client.open(tonate);
 

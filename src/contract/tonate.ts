@@ -25,6 +25,11 @@ export default class Tonate implements Contract {
     return stack.readBigNumber();
   }
 
+  async getCounter(provider: ContractProvider) {
+    const { stack } = await provider.get("counter", []);
+    return stack.readBigNumber();
+  }
+
   async getAddress(provider: ContractProvider) {
     const { stack } = await provider.get("address", []);
     return stack.readAddress();

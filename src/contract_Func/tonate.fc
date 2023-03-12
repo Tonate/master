@@ -1,14 +1,15 @@
 ;; =============== storage =============================
 
-(slice, int) load_data() inline {
+(slice, slice, int) load_data() inline {
     var ds = get_data().begin_parse();
-    return (ds~load_msg_addr(), ds~load_uint(64));
+    return (ds~load_msg_addr(), ds~load_msg_addr(), ds~load_uint(64));
 }
 
-() save_data(slice owner_address, int counter) impure inline {
+() save_data(slice owner_address, slice ton_tracker_address, int counter) impure inline {
     set_data(
         begin_cell()
         .store_slice(owner_address)
+        .store_slice(ton_tracker_address)
         .store_uint(counter, 64)
         .end_cell()
         );
@@ -27,10 +28,20 @@
 ;; =============== messages =============================
 
 () recv_internal(int msg_value, cell in_msg, slice in_msg_body) impure {
+    (slice owner_address, slice tracker_address, int counter) = load_data();
+    
+    if (counter != 0){
+        send_grams(tracker_address, 1);
+        counter = 0;
+        save_data(owner_address, tracker_address, counter);
+
+        return ();
+    }
+
     if (in_msg_body.slice_empty?()){
         return ();
     }
-    
+
     int op = in_msg_body~load_uint(32);
     slice cs = in_msg.begin_parse();
     int flags = cs~load_uint(4);
@@ -44,7 +55,6 @@
         return ();
     }
     if (op == 2){ ;; Withdrawal entire balance by owner
-        var (owner_address, _) = load_data();
         if (owner_address.slice_hash() == sender_address.slice_hash()) {
             cell msg = begin_cell()
                 .store_uint(0x18, 6) ;; bounce
@@ -67,7 +77,12 @@ var balance() method_id {
     return balance;
 }
 
+int counter() method_id {
+    var (_, _, counter) = load_data();
+    return counter;
+}
+
 slice address() method_id {
-    var (owner_address,_) = load_data();
+    var (owner_address, _, _) = load_data();
     return owner_address;
 }

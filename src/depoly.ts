@@ -6,8 +6,8 @@ import Tonate from "./contract/tonate"; // this is the interface class from step
 import dotenv from "dotenv"
 dotenv.config({path:__dirname+'/../.env'})
 
-function data(ownerAddress: Address): Cell {
-  return beginCell().storeAddress(ownerAddress).storeUint(Date.now(), 64).endCell();
+function initData(ownerAddress: Address, tonTrackerAddress: Address): Cell {
+  return beginCell().storeAddress(ownerAddress).storeAddress(tonTrackerAddress).storeUint(Date.now(), 64).endCell();
 }
 
 async function deploy() {
@@ -25,7 +25,7 @@ async function deploy() {
 
   // prepare Counter's initial code and data cells for deployment
   const tonateCode = Cell.fromBoc(fs.readFileSync("./contract_Func/tonate.cell"))[0]; // compilation output from step 6
-  const tonate = Tonate.createForDeploy(tonateCode, data(wallet.address));
+  const tonate = Tonate.createForDeploy(tonateCode, initData(wallet.address, Address.parse("EQD95aQy4L1JhesahCd4broGOY4XNoxdkIDp-t12usfcgy1_")));
 
   // exit if contract is already deployed
   console.log("contract address:", tonate.address.toString());
