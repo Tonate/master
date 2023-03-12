@@ -7,7 +7,7 @@ import { useTonConnect } from './hooks/useTonConnect';
 
 function App() {
   const {connected} = useTonConnect();
-  const {value, address, tonateEat, withrawAll, sendMoney} = useTonateContract();
+  const {value, address, sendReceiveTon, sendWithdrawAll, sendMoney} = useTonateContract();
 
   return (
     <div className='App'>
@@ -27,7 +27,7 @@ function App() {
         <a
           className={`Button ${connected ? 'Active' : 'Disabled'}`}
           onClick= {() => {
-            tonateEat();
+            sendReceiveTon();
           }}
           >
             Eat Ton
@@ -44,7 +44,7 @@ function App() {
         <a
           className={`Button ${connected ? 'Active' : 'Disabled'}`}
           onClick= {() => {
-            withrawAll();
+            sendWithdrawAll();
           }}
           >
             Withdraw All
