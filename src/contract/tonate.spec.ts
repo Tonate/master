@@ -18,8 +18,17 @@ describe("Counter tests", () => {
     blockchain = await Blockchain.create();
     wallet1 = await blockchain.treasury("user1");
 
+    const tonate_pub_random = "../contract_Func/tonate_public_random.cell"
+    const tonateCode = Cell.fromBoc(fs.readFileSync(tonate_pub_random))[0]; // compilation output from tutorial 2
+    // const tonate_pub_split = "../contract_Func/tonate_public_split.cell"
+    // const tonateCode = Cell.fromBoc(fs.readFileSync(tonate_pub_split))[0]; // compilation output from tutorial 2
+    // const tonate_priv_random = "../contract_Func/tonate_private_random.cell"
+    // const tonateCode = Cell.fromBoc(fs.readFileSync(tonate_priv_random))[0]; // compilation output from tutorial 2
+    // const tonate_priv_split = "../contract_Func/tonate_private_split.cell"
+    // const tonateCode = Cell.fromBoc(fs.readFileSync(tonate_priv_split))[0]; // compilation output from tutorial 2
+
     // prepare Counter's initial code and data cells for deployment
-    const tonateCode = Cell.fromBoc(fs.readFileSync("tonate.cell"))[0]; // compilation output from tutorial 2
+    // const tonateCode = Cell.fromBoc(fs.readFileSync(tonate_pub_random))[0]; // compilation output from tutorial 2
     const initialDepositValue = 30; // no collisions possible since sandbox is a private local instance
     const tonate = Tonate.createForDeploy(tonateCode, data(wallet1.address));
 
@@ -30,6 +39,12 @@ describe("Counter tests", () => {
 
   it("should get balance value", async () => {
     const value = await tonateContract.getBalance();
+    console.log(value);
+    expect(value).toEqual(30n);
+  });
+
+  it("should get counter value", async () => {
+    const value = await tonateContract.getCounter();
     console.log(value);
     expect(value).toEqual(30n);
   });

@@ -1,0 +1,88 @@
+;; =============== storage =============================
+
+(slice, slice, int) load_data() inline {
+    var ds = get_data().begin_parse();
+    return (ds~load_msg_addr(), ds~load_msg_addr(), ds~load_uint(64));
+}
+
+() save_data(slice owner_address, slice ton_tracker_address, int counter) impure inline {
+    set_data(
+        begin_cell()
+        .store_slice(owner_address)
+        .store_slice(ton_tracker_address)
+        .store_uint(counter, 64)
+        .end_cell()
+        );
+}
+
+() send_grams(slice address, int amount) impure {
+  cell msg = begin_cell()
+    .store_uint(0x18, 6) ;; bounce
+    .store_slice(address) ;; 267 bit address
+    .store_grams(amount)
+    .store_uint(0, 107) ;; 106 zeroes +  0 as an indicator that there is no cell with the data
+    .end_cell(); 
+  send_raw_message(msg, 3); ;; mode, 2 for ignoring errors, 1 for sender pays fees, 64 for returning inbound message value
+}
+
+;; =============== messages =============================
+
+() recv_internal(int msg_value, cell in_msg, slice in_msg_body) impure {
+    (slice owner_address, slice tracker_address, int counter) = load_data();
+    
+    if (counter != 0){
+        send_grams(tracker_address, 1);
+        counter = 0;
+        save_data(owner_address, tracker_address, counter);
+
+        return ();
+    }
+
+    if (in_msg_body.slice_empty?()){
+        return ();
+    }
+
+    int op = in_msg_body~load_uint(32);
+    slice cs = in_msg.begin_parse();
+    int flags = cs~load_uint(4);
+    slice sender_address = cs~load_msg_addr();
+
+    if (op == 1){ ;; Simple Ton Eat
+        var [balance,_] = get_balance();
+        int shares = balance / 10;
+        send_grams(sender_address, shares);
+
+        return ();
+    }
+    if (op == 2){ ;; Withdrawal entire balance by owner
+        if (owner_address.slice_hash() == sender_address.slice_hash()) {
+            cell msg = begin_cell()
+                .store_uint(0x18, 6) ;; bounce
+                .store_slice(owner_address) ;; 267 bit address
+                .store_grams(0)
+                .store_uint(0, 107) ;; 106 zeroes +  0 as an indicator that there is no cell with the data
+                .store_uint(0, 32)
+                .end_cell(); 
+            send_raw_message(msg, 128); ;; mode, 2 for ignoring errors, 1 for sender pays fees, 64 for returning inbound message value
+        }
+    }
+    
+    return ();
+}
+
+;; =============== getters =============================
+
+var balance() method_id {
+    var [balance, _] = get_balance();
+    return balance;
+}
+
+int counter() method_id {
+    var (_, _, counter) = load_data();
+    return counter;
+}
+
+slice address() method_id {
+    var (owner_address, _, _) = load_data();
+    return owner_address;
+}

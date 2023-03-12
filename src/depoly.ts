@@ -25,37 +25,41 @@ async function deploy() {
 
   // prepare Counter's initial code and data cells for deployment
   const tonateCode = Cell.fromBoc(fs.readFileSync("./contract_Func/tonate.cell"))[0]; // compilation output from step 6
-  const tonate = Tonate.createForDeploy(tonateCode, initData(wallet.address, Address.parse("EQD95aQy4L1JhesahCd4broGOY4XNoxdkIDp-t12usfcgy1_")));
+  // const tonate = Tonate.createForDeploy(tonateCode, initData(wallet.address, Address.parse("EQCUdyHoh6WSHcd02oICpbz5SZxZv_Ig_nBpQcebk-Omf2BT")));
 
   // exit if contract is already deployed
-  console.log("contract address:", tonate.address.toString());
-  if (await client.isContractDeployed(tonate.address)) {
-    return console.log("Counter already deployed");
-  }
+  // console.log("contract address:", tonate.address.toString());
+  // if (await client.isContractDeployed(tonate.address)) {
+  //   return console.log("Counter already deployed");
+  // }
 
   // open wallet and read the current seqno of the wallet
   const walletContract = client.open(wallet);
   const walletSender = walletContract.sender(key.secretKey);
   const seqno = await walletContract.getSeqno();
 
-  const tonateContract = client.open(tonate);
+  // const tonateContract = client.open(tonate);
   
   // send the deploy transaction
-  await tonateContract.sendDeploy(walletSender);
+  // await tonateContract.sendDeploy(walletSender);
 
   // send Ton Eat transaction
   // const tonateAddress = Address.parse("EQAtii2cWTG_9k9wIfFSF-Tg1ZSl3jTa8SWyUuJ7VY76iLNj");
-  // const tonate = new Tonate(tonateAddress);
-  // await tonateContract.sendEat(walletSender);
+  const tonateAddress = Address.parse("EQCUdyHoh6WSHcd02oICpbz5SZxZv_Ig_nBpQcebk-Omf2BT");
+  const tonate = new Tonate(tonateAddress);
+  const tonateContract = client.open(tonate);
+  await tonateContract.sendEat(walletSender);
 
   // send Send Money transaction
   // const tonateAddress = Address.parse("EQAtii2cWTG_9k9wIfFSF-Tg1ZSl3jTa8SWyUuJ7VY76iLNj");
   // const tonate = new Tonate(tonateAddress);
+  // const tonateContract = client.open(tonate);
   // await tonateContract.sendMoney(walletSender);
 
   // send Withdraw All transaction
   // const tonateAddress = Address.parse("EQAtii2cWTG_9k9wIfFSF-Tg1ZSl3jTa8SWyUuJ7VY76iLNj");
   // const tonate = new Tonate(tonateAddress);
+  // const tonateContract = client.open(tonate);
   // await tonateContract.sendWithdrawAll(walletSender);
 
 
