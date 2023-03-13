@@ -1,4 +1,4 @@
-import { WalletInfo } from "../types";
+import { Tonate, WalletInfo } from "../types";
 import { WalletInfoBox } from "./WalletInfoBox";
 import { RankingList } from "./RankingList";
 import { useTonWallet } from "@tonconnect/ui-react";
@@ -8,11 +8,18 @@ import styles from "./TonatePage.module.css";
 import { LoginBox } from "./LoginBox";
 import { scanTonateContractAddressAll } from "../helpers/tonScan";
 import { Spinner } from "./icon/Spinner";
+import { useTonateContract } from "../hooks/userTonateContract";
 
 export function TonatePage() {
   const wallet = useTonWallet();
-  const [tonateAddressList, setTonateAddressList] = useState<string[]>([]);
+  const [tonateContractAddressList, setTonateContractAddressList] = useState<
+    string[]
+  >([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  // https://tonate.github.io/master/{addess} URL에 딸려오는 쿼리 스트링으로 바로 받기
+  // TONate 주소가 접근한 URL에 존재하면 그 친구만 보여주기
+  // const tonateContractAddress = window.location.href;
 
   const walletInfo: WalletInfo = {
     totalBalance: 123.1,
@@ -23,9 +30,10 @@ export function TonatePage() {
   useEffect(() => {
     async function scanTonateContractAddress() {
       setIsLoading(true);
+
       const tonateAddressList = await scanTonateContractAddressAll();
 
-      setTonateAddressList(tonateAddressList);
+      setTonateContractAddressList(tonateAddressList);
       setIsLoading(false);
     }
 
@@ -42,7 +50,7 @@ export function TonatePage() {
         <LoginBox></LoginBox>
       )}
 
-      <RankingList tonateAddressList={tonateAddressList}></RankingList>
+      <RankingList tonateAddressList={tonateContractAddressList}></RankingList>
 
       {isLoading && (
         <div className={styles.loading}>

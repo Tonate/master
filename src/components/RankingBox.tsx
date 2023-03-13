@@ -7,15 +7,11 @@ import styles from "./RankingBox.module.css";
 
 interface RankingBoxProps {
   rankOrder: number;
-  tonateAddress: string;
+  tonate: any;
 }
 
-export const RankingBox: FC<RankingBoxProps> = ({
-  rankOrder,
-  tonateAddress,
-}) => {
+export const RankingBox: FC<RankingBoxProps> = ({ rankOrder, tonate }) => {
   const connector = useTonConnect();
-  const tonate = useTonateContract(tonateAddress);
 
   const receiveTonate = async () => {
     console.log("receiveTonate");
@@ -41,7 +37,7 @@ export const RankingBox: FC<RankingBoxProps> = ({
           )}
         ></div>
         <div className={styles.tonateInfo}>
-          <span title={tonateAddress}>{tonateAddress}</span>
+          <span title={tonate.address}>{tonate.address}</span>
           <span>@qwe</span>
         </div>
       </div>

@@ -33,9 +33,10 @@
 }
 
 .firstRankedTonateProfileImage {
-  background-image: url("../assets/first_ranked_profile.png");
   width: 91px;
   height: 113px;
+  background-color: transparent;
+  background-image: url("../assets/first_ranked_profile.png");
 }
 
 .tonateRankingProfile {
