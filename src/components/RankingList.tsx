@@ -1,14 +1,13 @@
 import { FC } from "react";
-import { TonateInfo } from "../types";
 import { RankingBox } from "./RankingBox";
 
 import styles from "./RankingList.module.css";
 
 interface RankingListProps {
-  tonateList: TonateInfo[];
+  tonateAddressList: string[];
 }
 
-export const RankingList: FC<RankingListProps> = ({ tonateList }) => {
+export const RankingList: FC<RankingListProps> = ({ tonateAddressList }) => {
   return (
     <div className={styles.rankingList}>
       <div className={styles.rankingListHeader}>
@@ -18,8 +17,14 @@ export const RankingList: FC<RankingListProps> = ({ tonateList }) => {
         </span>
       </div>
       <div className={styles.rankingListBody}>
-        {tonateList.map((tonate) => {
-          return <RankingBox key={tonate.address} tonateInfo={tonate} />;
+        {tonateAddressList.map((tonateAddress, index) => {
+          return (
+            <RankingBox
+              key={tonateAddress}
+              rankOrder={index}
+              tonateAddress={tonateAddress}
+            />
+          );
         })}
       </div>
     </div>

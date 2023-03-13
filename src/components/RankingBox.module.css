@@ -5,7 +5,35 @@
 }
 
 .infoArea {
+  position: relative;
+  display: flex;
+  gap: 24px;
   height: 133px;
+  padding: 30px 22px 22px;
+}
+
+.firstRankedTonateImage {
+  position: relative;
+  width: 81px;
+  height: 80px;
+  background-image: url("../assets/tonate_ranking_profile.png");
+}
+
+.tonateInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tonateInfo span:nth-child(1) {
+  display: block;
+  width: 138px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .amountArea {
@@ -13,7 +41,6 @@
   flex-direction: column;
   align-items: center;
   gap: 11px;
-
   height: 148px;
   padding: 16px 28px;
   border-radius: 0 0 10px 10px;
