@@ -1,4 +1,5 @@
 .rankingbox {
+  position: relative;
   background: #45505f;
   box-shadow: 0px 0px 0px rgba(179, 179, 179, 0.25);
   border-radius: 10px;
@@ -7,16 +8,40 @@
 .infoArea {
   position: relative;
   display: flex;
+  align-items: center;
   gap: 24px;
-  height: 133px;
-  padding: 30px 22px 22px;
+  height: 141px;
+  padding: 0 22px;
 }
 
-.firstRankedTonateImage {
-  position: relative;
+.secondRankedTonateProfileMedal {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 48px;
+  height: 48px;
+  background-image: url("../assets/2nd_medal.png");
+}
+
+.thirdRankedTonateProfileMedal {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 48px;
+  height: 48px;
+  background-image: url("../assets/3rd_medal.png");
+}
+
+.firstRankedTonateProfileImage {
+  background-image: url("../assets/first_ranked_profile.png");
+  width: 91px;
+  height: 113px;
+}
+
+.tonateRankingProfile {
+  background-image: url("../assets/tonate_ranking_profile.png");
   width: 81px;
   height: 80px;
-  background-image: url("../assets/tonate_ranking_profile.png");
 }
 
 .tonateInfo {

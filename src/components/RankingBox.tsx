@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useTonConnect } from "../hooks/useTonConnect";
 import { useTonateContract } from "../hooks/userTonateContract";
+import clsx from "clsx";
 
 import styles from "./RankingBox.module.css";
 
@@ -25,8 +26,20 @@ export const RankingBox: FC<RankingBoxProps> = ({
 
   return (
     <div className={styles.rankingbox}>
-      <div className={styles.infoArea}>
-        <div className={styles.firstRankedTonateImage}></div>
+      {rankOrder === 1 && (
+        <div className={styles.secondRankedTonateProfileMedal}></div>
+      )}
+      {rankOrder === 2 && (
+        <div className={styles.thirdRankedTonateProfileMedal}></div>
+      )}
+      <div className={clsx(styles.infoArea)}>
+        <div
+          className={clsx(
+            rankOrder === 0
+              ? styles.firstRankedTonateProfileImage
+              : styles.tonateRankingProfile
+          )}
+        ></div>
         <div className={styles.tonateInfo}>
           <span title={tonateAddress}>{tonateAddress}</span>
           <span>@qwe</span>
