@@ -1,7 +1,14 @@
-import { Contract, ContractProvider, Sender, Address, Cell, contractAddress, beginCell } from "ton-core";
+import {
+  Contract,
+  ContractProvider,
+  Sender,
+  Address,
+  Cell,
+  contractAddress,
+  beginCell,
+} from "ton-core";
 
 export default class Tonate implements Contract {
-
   static createForDeploy(code: Cell, initData: Cell): Tonate {
     // const data = beginCell()
     //   .storeUint(initialCounterValue, 64)
@@ -11,28 +18,28 @@ export default class Tonate implements Contract {
     return new Tonate(address, { code, data: initData });
   }
 
-  constructor(readonly address: Address, readonly init?: { code: Cell, data: Cell }) {}
+  constructor(
+    readonly address: Address,
+    readonly init?: { code: Cell; data: Cell }
+  ) {}
 
   async sendDeploy(provider: ContractProvider, via: Sender) {
     await provider.internal(via, {
       value: "0.02", // send 0.01 TON to contract for rent
-      bounce: false
+      bounce: false,
     });
   }
 
   async getBalance(provider: ContractProvider) {
     const { stack } = await provider.get("balance", []);
-    return stack.readBigNumber();
+    return (
+      Number.parseFloat(stack.readBigNumber().toString()) / 1000000000
+    ).toFixed(3);
   }
 
   async getCounter(provider: ContractProvider) {
     const { stack } = await provider.get("counter", []);
     return stack.readBigNumber();
-  }
-
-  async getOwnerAddress(provider: ContractProvider) {
-    const { stack } = await provider.get("address", []);
-    return stack.readAddress();
   }
 
   // async getUserNumber(provider: ContractProvider) {
@@ -43,7 +50,12 @@ export default class Tonate implements Contract {
   async getTitle(provider: ContractProvider) {
     const { stack } = await provider.get("title", []);
     return stack.readString();
-  }  
+  }
+
+  async getOwnerAddress(provider: ContractProvider) {
+    const { stack } = await provider.get("address", []);
+    return stack.readAddress();
+  }
 
   async sendReceiveTon(provider: ContractProvider, via: Sender) {
     const messageBody = beginCell()
@@ -52,7 +64,7 @@ export default class Tonate implements Contract {
       .endCell();
     await provider.internal(via, {
       value: "0.005", // send 0.002 TON for gas
-      body: messageBody
+      body: messageBody,
     });
   }
 
@@ -63,14 +75,13 @@ export default class Tonate implements Contract {
       .endCell();
     await provider.internal(via, {
       value: "0.005", // send 0.002 TON for gas
-      body: messageBody
+      body: messageBody,
     });
   }
 
   async sendMoney(provider: ContractProvider, via: Sender) {
     await provider.internal(via, {
-      value: "0.02"
+      value: "0.02",
     });
   }
-
 }

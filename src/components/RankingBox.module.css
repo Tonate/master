@@ -1,0 +1,124 @@
+.rankingbox {
+  position: relative;
+  background: #45505f;
+  box-shadow: 0px 0px 0px rgba(179, 179, 179, 0.25);
+  border-radius: 10px;
+}
+
+.infoArea {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 141px;
+  padding: 0 22px;
+}
+
+.secondRankedTonateProfileMedal {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 48px;
+  height: 48px;
+  background-image: url("../assets/2nd_medal.png");
+}
+
+.thirdRankedTonateProfileMedal {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 48px;
+  height: 48px;
+  background-image: url("../assets/3rd_medal.png");
+}
+
+.firstRankedTonateProfileImage {
+  width: 91px;
+  height: 113px;
+  background-color: transparent;
+  background-image: url("../assets/first_ranked_profile.png");
+}
+
+.tonateRankingProfile {
+  background-image: url("../assets/tonate_ranking_profile.png");
+  width: 81px;
+  height: 80px;
+}
+
+.tonateInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tonateInfo span:nth-child(1) {
+  display: block;
+  width: 150px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tonateInfo span:nth-child(2) {
+  display: block;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.amountArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px;
+  height: 148px;
+  padding: 16px 28px;
+  border-radius: 0 0 10px 10px;
+  background: #181c23;
+}
+
+.amountArea span:nth-child(1) {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.amountArea > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tonIcon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url("../assets/ton_icon.png");
+}
+
+.tonateAmount {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.receiveButton {
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  width: 279px;
+  height: 45px;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: var(--font-color-default);
+  background: rgba(69, 80, 95, 0.2);
+  cursor: pointer;
+}

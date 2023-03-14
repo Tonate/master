@@ -1,0 +1,47 @@
+.tonateHistoryBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 86px;
+  padding: 16px;
+  gap: 8px;
+  background: #2a313e;
+  border-radius: 10px;
+}
+
+.tonateHistoryBox > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tonImage {
+  background-image: url("../assets/TON.png");
+  width: 55px;
+  height: 55px;
+}
+
+.tonateInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.tonateInfo span:nth-child(1) {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.tonateInfo span:nth-child(2) {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #9d9d9d;
+}
+
+.tonateInfo span:nth-child(3) {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: #747474;
+}
