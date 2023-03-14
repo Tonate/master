@@ -47,8 +47,8 @@ export const RankingBox: FC<RankingBoxProps> = ({
           )}
         ></div>
         <div className={styles.tonateInfo}>
-          <span title={tonate.address}>{tonate.address}</span>
-          <span>@qwe</span>
+          <span title={tonate.address}>{tonate.title}</span>
+          <span>{tonate.address}</span>
         </div>
       </div>
       <div className={styles.amountArea}>

@@ -8,6 +8,7 @@ export interface WalletInfo {
 
 export interface Tonate {
   value: number;
+  title: string;
   address: string | undefined;
   sendReceiveTon: () => Promise<void> | undefined;
   sendWithdrawAll: () => Promise<void> | undefined;

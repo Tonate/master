@@ -20,6 +20,8 @@ export const RankingList: FC<RankingListProps> = ({
     })
     .sort((t1, t2) => t2.value - t1.value);
 
+  console.log(tonateList);
+
   return (
     <div className={styles.rankingList}>
       <div className={styles.rankingListHeader}>

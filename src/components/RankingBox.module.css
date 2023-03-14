@@ -53,10 +53,18 @@
 
 .tonateInfo span:nth-child(1) {
   display: block;
-  width: 138px;
+  width: 150px;
   font-weight: 700;
   font-size: 20px;
   line-height: 23px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tonateInfo span:nth-child(2) {
+  display: block;
+  width: 150px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

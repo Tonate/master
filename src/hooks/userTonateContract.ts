@@ -7,7 +7,8 @@ import { useTonConnect } from "./useTonConnect";
 
 export function useTonateContract(tonateAddress: string) {
   const client = useTonClient();
-  const [val, setVal] = useState<number>(0);
+  const [tonateValue, setTonateValue] = useState<number>(0);
+  const [tonateTitle, setTonateTitle] = useState<string>("");
   const { sender } = useTonConnect();
 
   const sleep = (time: number) =>
@@ -24,8 +25,10 @@ export function useTonateContract(tonateAddress: string) {
     async function getValue() {
       if (!tonateContract) return;
 
-      const val = await tonateContract.getBalance();
-      setVal(Number(val));
+      const value = await tonateContract.getBalance();
+      const title = await tonateContract.getTitle();
+      setTonateValue(Number(value));
+      setTonateTitle(title.replace("\x00\x00\x00\x00", ""));
 
       await sleep(10000);
 
@@ -35,7 +38,8 @@ export function useTonateContract(tonateAddress: string) {
   }, [tonateContract]);
 
   return {
-    value: val,
+    value: tonateValue,
+    title: tonateTitle,
     address: tonateContract?.address.toString(),
     sendReceiveTon: () => {
       return tonateContract?.sendReceiveTon(sender);
