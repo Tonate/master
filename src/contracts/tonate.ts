@@ -35,6 +35,16 @@ export default class Tonate implements Contract {
     return stack.readAddress();
   }
 
+  // async getUserNumber(provider: ContractProvider) {
+  //   const { stack } = await provider.get("user_number", []);
+  //   return stack.readBigNumber();
+  // }
+
+  async getTitle(provider: ContractProvider) {
+    const { stack } = await provider.get("title", []);
+    return stack.readString();
+  }  
+
   async sendReceiveTon(provider: ContractProvider, via: Sender) {
     const messageBody = beginCell()
       .storeUint(1, 32) // op (op #1 = increment)
@@ -62,4 +72,5 @@ export default class Tonate implements Contract {
       value: "0.02"
     });
   }
+
 }

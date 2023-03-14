@@ -1,13 +1,19 @@
 import * as fs from "fs";
 import { getHttpEndpoint } from "@orbs-network/ton-access";
 import { mnemonicToWalletKey } from "ton-crypto";
-import { TonClient, Cell, WalletContractV4, beginCell, Address } from "ton";
+import { TonClient, Cell, WalletContractV4, beginCell, Address, Slice, comment } from "ton";
 import Tonate from "../contracts/tonate"; // this is the interface class from step 7
 
 const TONATE_TRACKER_WALLET_ADDRESS = "EQD95aQy4L1JhesahCd4broGOY4XNoxdkIDp-t12usfcgy1_";
 
-function initData(ownerAddress: Address, tonTrackerAddress: Address): Cell {
-  return beginCell().storeAddress(ownerAddress).storeAddress(tonTrackerAddress).storeUint(Date.now(), 64).endCell();
+function initData(ownerAddress: Address, tonTrackerAddress: Address, title: string): Cell {
+  
+  return beginCell()
+  .storeAddress(ownerAddress)
+  .storeAddress(tonTrackerAddress)
+  .storeUint(Date.now(), 64)
+  .storeRef(comment(title))
+  .endCell();
 }
 
 async function deploy() {
@@ -25,7 +31,8 @@ async function deploy() {
   
   // prepare Counter's initial code and data cells for deployment
   const tonateCode = Cell.fromBoc(fs.readFileSync("../contract_Func/tonate.cell"))[0]; // compilation output from step 6
-  const tonate = Tonate.createForDeploy(tonateCode, initData(wallet.address, Address.parse(TONATE_TRACKER_WALLET_ADDRESS)));
+  const tonateTitle = "Tonate Team Fund"
+  const tonate = Tonate.createForDeploy(tonateCode, initData(wallet.address, Address.parse(TONATE_TRACKER_WALLET_ADDRESS), tonateTitle));
 
   // exit if contract is already deployed
   console.log("contract address:", tonate.address.toString());

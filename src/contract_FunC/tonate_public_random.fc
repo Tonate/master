@@ -49,6 +49,16 @@
 
     if (op == 1){ ;; Simple Ton Eat
         var [balance,_] = get_balance();
+
+        int seed = cell_hash(begin_cell()
+            .store_uint(now(), 256)
+            .store_uint(block_lt(), 256)
+            .store_uint(cur_lt(), 256)
+        .end_cell());
+        ~dump(seed)
+        randomize(seed); ;; now you can just call rand() or random() functions to get random numbers
+        ~dump(seed)
+        
         int shares = balance / 10;
         send_grams(sender_address, shares);
 
