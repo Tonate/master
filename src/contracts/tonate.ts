@@ -34,7 +34,7 @@ export default class Tonate implements Contract {
     const { stack } = await provider.get("balance", []);
     return (
       Number.parseFloat(stack.readBigNumber().toString()) / 1000000000
-    ).toFixed(4);
+    ).toFixed(3);
   }
 
   async getCounter(provider: ContractProvider) {

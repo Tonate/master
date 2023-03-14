@@ -1,22 +1,32 @@
 import { FC } from "react";
 import { useTonConnect } from "../hooks/useTonConnect";
-import { useTonateContract } from "../hooks/userTonateContract";
 import clsx from "clsx";
 
 import styles from "./RankingBox.module.css";
+import { Tonate } from "../types";
 
 interface RankingBoxProps {
   rankOrder: number;
-  tonate: any;
+  tonate: Tonate;
+  isLogin: boolean;
 }
 
-export const RankingBox: FC<RankingBoxProps> = ({ rankOrder, tonate }) => {
+export const RankingBox: FC<RankingBoxProps> = ({
+  rankOrder,
+  tonate,
+  isLogin,
+}) => {
   const connector = useTonConnect();
 
   const receiveTonate = async () => {
     console.log("receiveTonate");
     console.log(connector);
     console.log(tonate);
+    if (!isLogin) {
+      // @TODO - 지갑 연결하라는 모달 띄우기
+      console.error("wallet was not connected");
+      return;
+    }
     await tonate.sendReceiveTon();
   };
 

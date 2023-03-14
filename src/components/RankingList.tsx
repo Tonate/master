@@ -7,9 +7,13 @@ import styles from "./RankingList.module.css";
 
 interface RankingListProps {
   tonateAddressList: string[];
+  isLogin: boolean;
 }
 
-export const RankingList: FC<RankingListProps> = ({ tonateAddressList }) => {
+export const RankingList: FC<RankingListProps> = ({
+  tonateAddressList,
+  isLogin,
+}) => {
   const tonateList: Tonate[] = tonateAddressList
     .map((address) => {
       return useTonateContract(address);
@@ -31,6 +35,7 @@ export const RankingList: FC<RankingListProps> = ({ tonateAddressList }) => {
               key={tonate.address ?? index}
               rankOrder={index}
               tonate={tonate}
+              isLogin={isLogin}
             />
           );
         })}

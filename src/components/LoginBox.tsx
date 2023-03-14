@@ -1,15 +1,15 @@
 import { useTonConnectUI } from "@tonconnect/ui-react";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 
 import styles from "./LoginBox.module.css";
 
-const buttonRootId = "ton-connect-button";
+const BUTTON_ROOT_ID = "ton-connect-button";
 
 export const LoginBox: FC = () => {
   const [_, setOptions] = useTonConnectUI();
 
   useEffect(() => {
-    setOptions({ buttonRootId });
+    setOptions({ buttonRootId: BUTTON_ROOT_ID });
   }, []);
 
   return (
@@ -17,7 +17,7 @@ export const LoginBox: FC = () => {
       <div>
         <span>Hello!</span>
         <span>TONate Login</span>
-        <div id={buttonRootId} className={styles.connectWalletButton}></div>
+        <div id={BUTTON_ROOT_ID} className={styles.connectWalletButton}></div>
       </div>
       <div className={styles.wavingHandImage}></div>
     </div>

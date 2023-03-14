@@ -9,14 +9,17 @@ interface WalletInfoBoxProps {
 }
 
 export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
-  const { totalBalance, dollar, tonateHistoryList } = walletInfo;
+  const {
+    balance: { ton, dollar },
+    tonateHistoryList,
+  } = walletInfo;
 
   return (
     <div className={styles.walletInfoBox}>
       <div className={styles.walletInfo}>
         <div>
           <span>Total balance</span>
-          <span>{`${totalBalance}TON`}</span>
+          <span>{`${ton}TON`}</span>
           <span>{`$${dollar}`}</span>
         </div>
         <div className={styles.profileImage}></div>

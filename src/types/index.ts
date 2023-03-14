@@ -1,6 +1,8 @@
 export interface WalletInfo {
-  totalBalance: number;
-  dollar: number;
+  balance: {
+    ton: string;
+    dollar: string;
+  };
   tonateHistoryList: any;
 }
 
