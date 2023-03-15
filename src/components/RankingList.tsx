@@ -8,11 +8,13 @@ import styles from "./RankingList.module.css";
 interface RankingListProps {
   tonateAddressList: string[];
   isLogin: boolean;
+  onClickReceiveTon: (isSuccess: boolean) => void;
 }
 
 export const RankingList: FC<RankingListProps> = ({
   tonateAddressList,
   isLogin,
+  onClickReceiveTon,
 }) => {
   const tonateList: Tonate[] = tonateAddressList
     .map((address) => {
@@ -38,6 +40,7 @@ export const RankingList: FC<RankingListProps> = ({
               rankOrder={index}
               tonate={tonate}
               isLogin={isLogin}
+              onClickReceiveTon={onClickReceiveTon}
             />
           );
         })}

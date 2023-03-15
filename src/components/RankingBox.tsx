@@ -9,25 +9,26 @@ interface RankingBoxProps {
   rankOrder: number;
   tonate: Tonate;
   isLogin: boolean;
+  onClickReceiveTon: (isSuccess: boolean) => void;
 }
 
 export const RankingBox: FC<RankingBoxProps> = ({
   rankOrder,
   tonate,
   isLogin,
+  onClickReceiveTon,
 }) => {
   const connector = useTonConnect();
 
   const receiveTonate = async () => {
-    console.log("receiveTonate");
-    console.log(connector);
-    console.log(tonate);
     if (!isLogin) {
-      // @TODO - 지갑 연결하라는 모달 띄우기
-      console.error("wallet was not connected");
+      onClickReceiveTon(false);
+
       return;
     }
+
     await tonate.sendReceiveTon();
+    onClickReceiveTon(true);
   };
 
   return (

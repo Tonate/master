@@ -11,6 +11,7 @@ import { Spinner } from "./icon/Spinner";
 import { useTonClient } from "../hooks/useTonClient";
 import { Address } from "ton-core";
 import { TonateLogo } from "./icon/TonateLogo";
+import { AlertModal } from "./AlertModal";
 
 export function TonatePage() {
   const client = useTonClient();
@@ -24,6 +25,7 @@ export function TonatePage() {
   });
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisibleAlertModal, setIsVisibleAlertModal] = useState(false);
 
   // https://tonate.github.io/master/{addess} URL에 딸려오는 쿼리 스트링으로 바로 받기
   // TONate 주소가 접근한 URL에 존재하면 그 친구만 보여주기
@@ -72,15 +74,16 @@ export function TonatePage() {
   useEffect(() => {
     async function scanTonateContractAddress() {
       setIsLoading(true);
-
       const tonateAddressList = await scanTonateContractAddressAll();
-
       setTonateContractAddressList(tonateAddressList);
       setIsLoading(false);
     }
-
     scanTonateContractAddress();
   }, []);
+
+  const receiveTon = (isSuccess: boolean) => {
+    setIsVisibleAlertModal(!isSuccess);
+  };
 
   return (
     <div className={styles.tonatePage}>
@@ -98,7 +101,13 @@ export function TonatePage() {
       <RankingList
         tonateAddressList={tonateContractAddressList}
         isLogin={isLogin}
+        onClickReceiveTon={receiveTon}
       ></RankingList>
+
+      <AlertModal
+        isOpen={isVisibleAlertModal}
+        onClickConfirm={setIsVisibleAlertModal}
+      />
 
       {isLoading && (
         <div className={styles.loading}>
