@@ -10,13 +10,18 @@
 }
 
 .title {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.title span {
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 700;
   font-size: 26px;
   line-height: 38px;
-  margin-bottom: 15px;
 }
 
 .loading {

@@ -10,6 +10,7 @@ import { scanTonateContractAddressAll } from "../helpers/tonScan";
 import { Spinner } from "./icon/Spinner";
 import { useTonClient } from "../hooks/useTonClient";
 import { Address } from "ton-core";
+import { TonateLogo } from "./icon/TonateLogo";
 
 export function TonatePage() {
   const client = useTonClient();
@@ -83,7 +84,10 @@ export function TonatePage() {
 
   return (
     <div className={styles.tonatePage}>
-      <span className={styles.title}>TONate</span>
+      <div className={styles.title}>
+        <TonateLogo />
+        <span>TONate</span>
+      </div>
 
       {isLogin ? (
         <WalletInfoBox walletInfo={walletInfo} />
