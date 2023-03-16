@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { WalletInfo } from "../types";
+import { WalletInfo } from "@/types";
 import { TonateHistoryBox } from "./TonateHistoryBox";
 
 import styles from "./WalletInfoBox.module.css";

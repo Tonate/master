@@ -1,5 +1,5 @@
 import { Dispatch, FC, SetStateAction } from "react";
-import { Copy, Link } from "./icon";
+import { Copy, Link } from "@/components/icon";
 
 import styles from "./TonateConfirmModal.module.css";
 

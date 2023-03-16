@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useTonateContract } from "../hooks/userTonateContract";
-import { Tonate } from "../types";
+import { useTonateContract } from "@/hooks/userTonateContract";
+import { Tonate } from "@/types";
 import { RankingBox } from "./RankingBox";
 
 import styles from "./RankingList.module.css";

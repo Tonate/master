@@ -1,5 +1,5 @@
-import clsx from "clsx";
 import { FC, useState } from "react";
+import clsx from "clsx";
 
 import styles from "./Toggle.module.css";
 

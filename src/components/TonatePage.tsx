@@ -1,19 +1,17 @@
-import { WalletInfo } from "../types";
-import { WalletInfoBox } from "./WalletInfoBox";
-import { RankingList } from "./RankingList";
-import { useTonWallet } from "@tonconnect/ui-react";
 import { useEffect, useState } from "react";
-
-import { LoginBox } from "./LoginBox";
-import { scanTonateContractAddressAll } from "../helpers/tonScan";
-import { useTonClient } from "../hooks/useTonClient";
+import { useLocation } from "react-router-dom";
+import { useTonWallet } from "@tonconnect/ui-react";
 import { Address } from "ton-core";
-import { TonateLogo, Spinner } from "./icon";
-import { AlertModal } from "./AlertModal";
+import { WalletInfo } from "@/types";
+import { WalletInfoBox, RankingList, LoginBox, AlertModal } from "@/components";
+import { TonateLogo, Spinner } from "@/components/icon";
+import { scanTonateContractAddressAll } from "@/helpers/tonScan";
+import { useTonClient } from "@/hooks/useTonClient";
 
 import styles from "./TonatePage.module.css";
 
 export function TonatePage() {
+  const location = useLocation();
   const client = useTonClient();
   const wallet = useTonWallet();
   const [tonateContractAddressList, setTonateContractAddressList] = useState<
@@ -33,6 +31,10 @@ export function TonatePage() {
 
   useEffect(() => {
     async function getWalletInfo() {
+      if (!client) {
+        return;
+      }
+
       // @TODO - API 호출 횟수 제한으로 일단 상수로 대체
       const tonCoinMarketValue = {
         quotes: {
@@ -69,7 +71,7 @@ export function TonatePage() {
     } else {
       setIsLogin(false);
     }
-  }, [wallet]);
+  }, [client, wallet]);
 
   useEffect(() => {
     async function scanTonateContractAddress() {

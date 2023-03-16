@@ -98,6 +98,7 @@
   font-size: 14px;
   line-height: 16px;
   color: #9d9d9d;
+  user-select: none;
 }
 
 .method {
@@ -147,4 +148,5 @@
   color: #fff;
   background-color: #45505f;
   cursor: pointer;
+  user-select: none;
 }

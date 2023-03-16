@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { useTonConnect } from "../hooks/useTonConnect";
 import clsx from "clsx";
+import { useTonConnect } from "@/hooks/useTonConnect";
+import { Tonate } from "@/types";
 
 import styles from "./RankingBox.module.css";
-import { Tonate } from "../types";
 
 interface RankingBoxProps {
   rankOrder: number;
