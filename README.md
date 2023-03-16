@@ -1,21 +1,21 @@
 **Drop your TONs to your Telegram group friends.**   
-<br/>
+
 Telegram group members can pick up the TONs you dropped. Through this, they can pick up some of the amount you set on a first-come, first-served basis. If the members succeeds in picking it up, they can check Tonator’s profile and the amount they will receive. The amount is divided regardless of order.   
-<br/>
+
 
 ### What is Tonate?  
 <br/>
 It’s on Me. TONs on You.
-<br/><br/>
+<br/>
 
 - **The Sender** drops TON in the Telegram group using the Telegram web app/chatbot. The sender can decide whether to disclose or not. It decide that the amount that the Receiver receives is open to others.   
-<br/>
+
 - **The Receiver** picks up some amount of the dropped TONs on a first-come, first-served basis. However, the amount is divi`d`ed randomly among all recipients regardless of the order of pickup.   
-<br/>
+
 - **If the receiver doesn't have a wallet,** he/she can create a TON keeper private key through the web app/chatbot, and connect your wallet with it to receive TON    
-<br/>
+
 - **Ranking System** - You can check the ranking of Ton Sender and Receiver on the web app to see who received more than you.   
-<br/><br/>
+<br/>
 
 # Why Tonate?
 # 
