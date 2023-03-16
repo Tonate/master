@@ -16,20 +16,18 @@ It’s on Me. TONs on You.
 - **Ranking System** - You can check the ranking of Ton Sender and Receiver on the web app to see who received more than you.   
 
 # Why Tonate?
-# 
-<br/>
+
 **1. Community, for Activation**
 
 You can activate a Telegram group community by dropping TONs in real time.
-<br/>
+
 1. **Users, for fun-**
  
 If something good happens, share it with your friends. Even if you don't know the other person's address, you can drop the money through Telegram chat. Even those who don't have a wallet can receive the money that was dropped by linking TON Keeper through the web app/ chatbot.
-<br/>
+
 1. **dApps, for user Onboarding -** 
-<br/>
+
 Even Web 2 users can quickly flow into the service if they succeed in picking up dropped TONs .
-<br/><br/>
 
 # User Stories
 # <br/>
