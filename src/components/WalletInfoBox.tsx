@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { WalletInfo } from "../types";
 import { TonateHistoryBox } from "./TonateHistoryBox";
 
@@ -9,10 +10,16 @@ interface WalletInfoBoxProps {
 }
 
 export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
+  const navigate = useNavigate();
+
   const {
     balance: { ton, dollar },
     tonateHistoryList,
   } = walletInfo;
+
+  const routeToSendTonPage = () => {
+    navigate("/send");
+  };
 
   return (
     <div className={styles.walletInfoBox}>
@@ -43,6 +50,10 @@ export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
           })}
         </div>
       </div>
+
+      <button className={styles.sendTonButton} onClick={routeToSendTonPage}>
+        Send TON
+      </button>
     </div>
   );
 };
