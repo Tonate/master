@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/60724296/225576771-42020711-d322-456e-9bdc-7ac352521ea5.png)
+
 **Drop your TONs to your Telegram group friends.**   
 <br/>
 Telegram group members can pick up the TONs you dropped. Through this, they can pick up some of the amount you set on a first-come, first-served basis. If the members succeeds in picking it up, they can check Tonator’s profile and the amount they will receive. The amount is divided regardless of order.   
