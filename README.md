@@ -33,16 +33,13 @@ Even Web 2 users can quickly flow into the service if they succeed in picking up
 # User Stories
 
 **The Sender(Tonator)**
-
 1. Connect wallets and buy TONs that you want to drop(tonate).<br/>
 2. Determine the amount to be dropped, the way of dropping(random or split), the number of people, and whether to disclose it.<br/>
 3. After dropping the TONs, collect it after a certain period of time<br/><br/><br/>
     
 **The Receiver**
 1. Pick up the sender’s dropped TONs. 
-
 1. Create a TON Keeper through Chatbot or WebApp in the Telegram chat room.
-
 1. Connect the wallet and claim the dropped TONs.
 
 # Future Developments
