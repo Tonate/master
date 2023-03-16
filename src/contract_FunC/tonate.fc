@@ -18,12 +18,12 @@
 
 () send_grams(slice address, int amount) impure {
   cell msg = begin_cell()
-    .store_uint(0x18, 6) ;; bounce
-    .store_slice(address) ;; 267 bit address
+    .store_uint(0x18, 6)
+    .store_slice(address)
     .store_grams(amount)
-    .store_uint(0, 107) ;; 106 zeroes +  0 as an indicator that there is no cell with the data
+    .store_uint(0, 107)
     .end_cell(); 
-  send_raw_message(msg, 3); ;; mode, 2 for ignoring errors, 1 for sender pays fees, 64 for returning inbound message value
+  send_raw_message(msg, 3);
 }
 
 ;; =============== messages =============================
@@ -48,7 +48,7 @@
     int flags = cs~load_uint(4);
     slice sender_address = cs~load_msg_addr();
 
-    if (op == 1){ ;; Simple Ton Eat
+    if (op == 1){ ;; Simple Ton Distribution
         var [balance,_] = get_balance();
         int shares = balance / 10;
         send_grams(sender_address, shares);
@@ -58,13 +58,13 @@
     if (op == 2){ ;; Withdrawal entire balance by owner
         if (owner_address.slice_hash() == sender_address.slice_hash()) {
             cell msg = begin_cell()
-                .store_uint(0x18, 6) ;; bounce
-                .store_slice(owner_address) ;; 267 bit address
+                .store_uint(0x18, 6)
+                .store_slice(owner_address)
                 .store_grams(0)
-                .store_uint(0, 107) ;; 106 zeroes +  0 as an indicator that there is no cell with the data
+                .store_uint(0, 107)
                 .store_uint(0, 32)
                 .end_cell(); 
-            send_raw_message(msg, 128); ;; mode, 2 for ignoring errors, 1 for sender pays fees, 64 for returning inbound message value
+            send_raw_message(msg, 128);
         }
     }
     

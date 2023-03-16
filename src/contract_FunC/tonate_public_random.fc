@@ -1,39 +1,53 @@
 ;; =============== storage =============================
 
-(slice, slice, int) load_data() inline {
+(slice, slice, int, int, cell) load_data() inline {
     var ds = get_data().begin_parse();
-    return (ds~load_msg_addr(), ds~load_msg_addr(), ds~load_uint(64));
+    return (ds~load_msg_addr(), ds~load_msg_addr(), ds~load_uint(64), ds~load_uint(64), ds~load_ref());
 }
 
-() save_data(slice owner_address, slice ton_tracker_address, int counter) impure inline {
+() save_data(slice owner_address, slice tracker_address, int counter, int user_number, cell title) impure inline {
     set_data(
         begin_cell()
         .store_slice(owner_address)
-        .store_slice(ton_tracker_address)
+        .store_slice(tracker_address)
         .store_uint(counter, 64)
+        .store_uint(user_number, 64)
+        .store_ref(title)
         .end_cell()
         );
 }
 
 () send_grams(slice address, int amount) impure {
-  cell msg = begin_cell()
-    .store_uint(0x18, 6) ;; bounce
-    .store_slice(address) ;; 267 bit address
-    .store_grams(amount)
-    .store_uint(0, 107) ;; 106 zeroes +  0 as an indicator that there is no cell with the data
-    .end_cell(); 
-  send_raw_message(msg, 3); ;; mode, 2 for ignoring errors, 1 for sender pays fees, 64 for returning inbound message value
+    cell msg = begin_cell()
+        .store_uint(0x18, 6)
+        .store_slice(address)
+        .store_grams(amount)
+        .store_uint(0, 107)
+        .end_cell(); 
+    send_raw_message(msg, 3);
+}
+
+() send_gram_all(slice address) impure {
+    cell msg = begin_cell()
+        .store_uint(0x18, 6)
+        .store_slice(address)
+        .store_grams(0)
+        .store_uint(0, 107)
+        .store_uint(0, 32)
+        .end_cell(); 
+    send_raw_message(msg, 128);
 }
 
 ;; =============== messages =============================
 
 () recv_internal(int msg_value, cell in_msg, slice in_msg_body) impure {
-    (slice owner_address, slice tracker_address, int counter) = load_data();
+    (slice owner_address, slice tracker_address, int counter, int user_number, cell title) = load_data();
     
     if (counter != 0){
+        ;; Send 1 Nano TON to TONATE_TRACKER_WALLET in order to track tonate smartcontract with onchain data
         send_grams(tracker_address, 1);
         counter = 0;
-        save_data(owner_address, tracker_address, counter);
+        save_data(owner_address, tracker_address, counter, user_number, title);
 
         return ();
     }
@@ -47,33 +61,37 @@
     int flags = cs~load_uint(4);
     slice sender_address = cs~load_msg_addr();
 
-    if (op == 1){ ;; Simple Ton Eat
+    if (op == 1){ ;; Random Distribution Tonate with given number of users
+        if(user_number == 1){
+            send_gram_all(sender_address);
+            return ();
+        }
         var [balance,_] = get_balance();
-
+        
         int seed = cell_hash(begin_cell()
             .store_uint(now(), 256)
             .store_uint(block_lt(), 256)
             .store_uint(cur_lt(), 256)
         .end_cell());
-        ~dump(seed)
-        randomize(seed); ;; now you can just call rand() or random() functions to get random numbers
-        ~dump(seed)
-        
-        int shares = balance / 10;
+        randomize(seed);
+
+        int weight = 0;
+        ;; gas limit should be set
+        repeat(user_number / 2){ ;; Number of repeat can be updated
+            weight += (random() % (user_number * 2));
+        }
+        weight = (weight == 0 ? 1 : weight / (user_number / 2));
+        int shares = balance / weight;
+
         send_grams(sender_address, shares);
+        user_number -= 1;
+        save_data(owner_address, tracker_address, counter, user_number, title);
 
         return ();
     }
     if (op == 2){ ;; Withdrawal entire balance by owner
         if (owner_address.slice_hash() == sender_address.slice_hash()) {
-            cell msg = begin_cell()
-                .store_uint(0x18, 6) ;; bounce
-                .store_slice(owner_address) ;; 267 bit address
-                .store_grams(0)
-                .store_uint(0, 107) ;; 106 zeroes +  0 as an indicator that there is no cell with the data
-                .store_uint(0, 32)
-                .end_cell(); 
-            send_raw_message(msg, 128); ;; mode, 2 for ignoring errors, 1 for sender pays fees, 64 for returning inbound message value
+            send_gram_all(owner_address);
         }
     }
     
@@ -87,12 +105,17 @@ var balance() method_id {
     return balance;
 }
 
+slice address() method_id {
+    var (owner_address, _, _, _, _) = load_data();
+    return owner_address;
+}
+
 int counter() method_id {
-    var (_, _, counter) = load_data();
+    var (_, _, counter, _, _) = load_data();
     return counter;
 }
 
-slice address() method_id {
-    var (owner_address, _, _) = load_data();
-    return owner_address;
+int user_number() method_id {
+    var (_, _, _, user_number, _) = load_data();
+    return user_number;
 }
