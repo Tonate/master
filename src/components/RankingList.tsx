@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useTonateContract } from "../hooks/userTonateContract";
-import { Tonate } from "../types";
+import { useTonateContract } from "@/hooks/userTonateContract";
+import { Tonate } from "@/types";
 import { RankingBox } from "./RankingBox";
 
 import styles from "./RankingList.module.css";
@@ -8,19 +8,19 @@ import styles from "./RankingList.module.css";
 interface RankingListProps {
   tonateAddressList: string[];
   isLogin: boolean;
+  onClickReceiveTon: (isSuccess: boolean) => void;
 }
 
 export const RankingList: FC<RankingListProps> = ({
   tonateAddressList,
   isLogin,
+  onClickReceiveTon,
 }) => {
   const tonateList: Tonate[] = tonateAddressList
     .map((address) => {
       return useTonateContract(address);
     })
     .sort((t1, t2) => t2.value - t1.value);
-
-  console.log(tonateList);
 
   return (
     <div className={styles.rankingList}>
@@ -38,6 +38,7 @@ export const RankingList: FC<RankingListProps> = ({
               rankOrder={index}
               tonate={tonate}
               isLogin={isLogin}
+              onClickReceiveTon={onClickReceiveTon}
             />
           );
         })}

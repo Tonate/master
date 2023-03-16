@@ -3,20 +3,25 @@
   top: 0;
   width: 375px;
   min-height: 100vh;
-  background-color: #222;
+  background-color: #2a313e;
   padding: 40px 20px 0;
   font-family: "Roboto";
   font-style: normal;
 }
 
 .title {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.title span {
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 700;
   font-size: 26px;
   line-height: 38px;
-  margin-bottom: 15px;
 }
 
 .loading {

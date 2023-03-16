@@ -1,0 +1,34 @@
+.toggle {
+  display: flex;
+  align-items: center;
+  width: 287px;
+  height: 36px;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  background-color: #2a313e;
+  cursor: pointer;
+}
+
+.toggle div:nth-child(1) {
+  flex: 1;
+  padding: 8px 40px;
+  text-align: center;
+  transition: 300ms;
+  user-select: none;
+}
+
+.toggle div:nth-child(2) {
+  flex: 1;
+  padding: 8px 40px;
+  text-align: center;
+  transition: 300ms;
+  user-select: none;
+}
+
+.selected {
+  border-radius: 40px;
+  background-color: #45505f;
+  transition: 500ms;
+}

@@ -1,17 +1,17 @@
-import { WalletInfo } from "../types";
-import { WalletInfoBox } from "./WalletInfoBox";
-import { RankingList } from "./RankingList";
-import { useTonWallet } from "@tonconnect/ui-react";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useTonWallet } from "@tonconnect/ui-react";
+import { Address } from "ton-core";
+import { WalletInfo } from "@/types";
+import { WalletInfoBox, RankingList, LoginBox, AlertModal } from "@/components";
+import { TonateLogo, Spinner } from "@/components/icon";
+import { scanTonateContractAddressAll } from "@/helpers/tonScan";
+import { useTonClient } from "@/hooks/useTonClient";
 
 import styles from "./TonatePage.module.css";
-import { LoginBox } from "./LoginBox";
-import { scanTonateContractAddressAll } from "../helpers/tonScan";
-import { Spinner } from "./icon/Spinner";
-import { useTonClient } from "../hooks/useTonClient";
-import { Address } from "ton-core";
 
 export function TonatePage() {
+  const location = useLocation();
   const client = useTonClient();
   const wallet = useTonWallet();
   const [tonateContractAddressList, setTonateContractAddressList] = useState<
@@ -23,6 +23,7 @@ export function TonatePage() {
   });
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisibleAlertModal, setIsVisibleAlertModal] = useState(false);
 
   // https://tonate.github.io/master/{addess} URL에 딸려오는 쿼리 스트링으로 바로 받기
   // TONate 주소가 접근한 URL에 존재하면 그 친구만 보여주기
@@ -30,6 +31,10 @@ export function TonatePage() {
 
   useEffect(() => {
     async function getWalletInfo() {
+      if (!client) {
+        return;
+      }
+
       // @TODO - API 호출 횟수 제한으로 일단 상수로 대체
       const tonCoinMarketValue = {
         quotes: {
@@ -66,24 +71,28 @@ export function TonatePage() {
     } else {
       setIsLogin(false);
     }
-  }, [wallet]);
+  }, [client, wallet]);
 
   useEffect(() => {
     async function scanTonateContractAddress() {
       setIsLoading(true);
-
       const tonateAddressList = await scanTonateContractAddressAll();
-
       setTonateContractAddressList(tonateAddressList);
       setIsLoading(false);
     }
-
     scanTonateContractAddress();
   }, []);
 
+  const receiveTon = (isSuccess: boolean) => {
+    setIsVisibleAlertModal(!isSuccess);
+  };
+
   return (
     <div className={styles.tonatePage}>
-      <span className={styles.title}>TONate</span>
+      <div className={styles.title}>
+        <TonateLogo />
+        <span>TONate</span>
+      </div>
 
       {isLogin ? (
         <WalletInfoBox walletInfo={walletInfo} />
@@ -94,7 +103,13 @@ export function TonatePage() {
       <RankingList
         tonateAddressList={tonateContractAddressList}
         isLogin={isLogin}
+        onClickReceiveTon={receiveTon}
       ></RankingList>
+
+      <AlertModal
+        isOpen={isVisibleAlertModal}
+        onClickConfirm={setIsVisibleAlertModal}
+      />
 
       {isLoading && (
         <div className={styles.loading}>

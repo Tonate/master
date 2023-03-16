@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { RightArrow } from "./icon/RightArrow";
+import { RightArrow } from "@/components/icon";
 
 import styles from "./TonateHistoryBox.module.css";
 

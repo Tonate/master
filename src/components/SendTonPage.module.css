@@ -1,0 +1,152 @@
+.sendTonPage {
+  position: absolute;
+  top: 0;
+  width: 375px;
+  min-height: 100vh;
+  background-color: #2a313e;
+  padding: 40px 20px 0;
+  font-family: "Roboto";
+  font-style: normal;
+}
+
+.gnb {
+  margin-bottom: 15px;
+}
+
+.leftArrow {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.title span {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 38px;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  background-image: url("../assets/tonate_big_logo.png");
+}
+
+.sendTonateInfoBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 335px;
+  height: 297px;
+  padding: 24px;
+  margin-bottom: 16px;
+  border-radius: 20px;
+  background-color: #181c23;
+}
+
+.quantity {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.amount {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sendTonateInput {
+  position: relative;
+}
+
+.sendTonateInput input {
+  width: 287px;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  padding-left: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #fff;
+  background-color: #2a313e;
+}
+
+.quantity .sendTonateInput input {
+  padding-right: 70px;
+}
+
+.amount .sendTonateInput input {
+  padding-right: 50px;
+}
+
+.sendTonateInput .placeholder {
+  position: absolute;
+  top: 11px;
+  right: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: #9d9d9d;
+  user-select: none;
+}
+
+.method {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tonateSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 130px;
+  padding: 16px 24px;
+  width: 335px;
+  height: 101px;
+  border-radius: 20px;
+  background: #181c23;
+}
+
+.tonateSummary div:nth-child(1) {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tonateSummary div:nth-child(3) {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.tonateSummary hr {
+  border: 1px solid #2a313e;
+}
+
+.dropButton {
+  width: 335px;
+  height: 47px;
+  padding: 14px 40px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #fff;
+  background-color: #45505f;
+  cursor: pointer;
+  user-select: none;
+}
