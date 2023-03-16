@@ -26,7 +26,7 @@ export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
       <div className={styles.walletInfo}>
         <div>
           <span>Total balance</span>
-          <span>{`${ton}TON`}</span>
+          <span>{`${ton} TON`}</span>
           <span>{`$${dollar}`}</span>
         </div>
         <div className={styles.profileImage}></div>

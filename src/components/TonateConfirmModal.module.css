@@ -1,0 +1,86 @@
+.tonateConfirmModalWrapper {
+  position: fixed;
+  width: 375px;
+  min-height: 100vh;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: rgba(69, 80, 95, 0.5);
+}
+
+.tonateConfirmModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 327px;
+  height: 308px;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 23px;
+  color: #fff;
+  background: #181c23;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+.modalContent span:nth-child(1) {
+  display: block;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  margin-bottom: 8px;
+}
+
+.modalContent li {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.modalContent .copyBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 47px;
+  padding: 15px 17px;
+  border-radius: 10px;
+  background-color: #45505f;
+}
+
+.modalContent .copyBox div:nth-child(2) {
+  width: 210px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  user-select: none;
+}
+
+.modalContent .copyBox div:nth-child(3) {
+  cursor: pointer;
+}
+
+.modalContent button {
+  width: 279px;
+  height: 47px;
+  margin-top: 8px;
+  padding: 14px 40px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  background-color: #2a313e;
+  cursor: pointer;
+  user-select: none;
+}
