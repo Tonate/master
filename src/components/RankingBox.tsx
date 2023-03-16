@@ -1,6 +1,5 @@
 import { FC } from "react";
 import clsx from "clsx";
-import { useTonConnect } from "@/hooks/useTonConnect";
 import { Tonate } from "@/types";
 
 import styles from "./RankingBox.module.css";
@@ -18,8 +17,6 @@ export const RankingBox: FC<RankingBoxProps> = ({
   isLogin,
   onClickReceiveTon,
 }) => {
-  const connector = useTonConnect();
-
   const receiveTonate = async () => {
     if (!isLogin) {
       onClickReceiveTon(false);
