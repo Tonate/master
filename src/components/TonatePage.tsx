@@ -4,14 +4,14 @@ import { RankingList } from "./RankingList";
 import { useTonWallet } from "@tonconnect/ui-react";
 import { useEffect, useState } from "react";
 
-import styles from "./TonatePage.module.css";
 import { LoginBox } from "./LoginBox";
 import { scanTonateContractAddressAll } from "../helpers/tonScan";
-import { Spinner } from "./icon/Spinner";
 import { useTonClient } from "../hooks/useTonClient";
 import { Address } from "ton-core";
-import { TonateLogo } from "./icon/TonateLogo";
+import { TonateLogo, Spinner } from "./icon";
 import { AlertModal } from "./AlertModal";
+
+import styles from "./TonatePage.module.css";
 
 export function TonatePage() {
   const client = useTonClient();

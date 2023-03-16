@@ -1,12 +1,9 @@
-import { SVGProps } from "react";
-
-export const RightArrow = (props: SVGProps<SVGSVGElement>) => (
+export const RightArrow = () => (
   <svg
     width="24px"
     height="24px"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
   >
     <g clipPath="url(#a)">
       <path
