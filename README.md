@@ -8,9 +8,7 @@ Telegram group members can pick up the TONs you dropped. Through this, they can 
 It’s on Me. TONs on You.
 
 - **The Sender** drops TON in the Telegram group using the Telegram web app/chatbot. The sender can decide whether to disclose or not. It decide that the amount that the Receiver receives is open to others.   
-
 - **The Receiver** picks up some amount of the dropped TONs on a first-come, first-served basis. However, the amount is divi`d`ed randomly among all recipients regardless of the order of pickup.   
-
 - **If the receiver doesn't have a wallet,** he/she can create a TON keeper private key through the web app/chatbot, and connect your wallet with it to receive TON    
 
 - **Ranking System** - You can check the ranking of Ton Sender and Receiver on the web app to see who received more than you.   
