@@ -4,9 +4,8 @@ Telegram group members can pick up the TONs you dropped. Through this, they can 
 
 
 ### What is Tonate?  
-<br/>
+
 It’s on Me. TONs on You.
-<br/>
 
 - **The Sender** drops TON in the Telegram group using the Telegram web app/chatbot. The sender can decide whether to disclose or not. It decide that the amount that the Receiver receives is open to others.   
 
@@ -15,19 +14,18 @@ It’s on Me. TONs on You.
 - **If the receiver doesn't have a wallet,** he/she can create a TON keeper private key through the web app/chatbot, and connect your wallet with it to receive TON    
 
 - **Ranking System** - You can check the ranking of Ton Sender and Receiver on the web app to see who received more than you.   
-<br/>
 
 # Why Tonate?
 # 
 <br/>
 **1. Community, for Activation**
-<br/> 
+
 You can activate a Telegram group community by dropping TONs in real time.
-<br/><br/>
+<br/>
 1. **Users, for fun-**
-<br/> 
+ 
 If something good happens, share it with your friends. Even if you don't know the other person's address, you can drop the money through Telegram chat. Even those who don't have a wallet can receive the money that was dropped by linking TON Keeper through the web app/ chatbot.
-<br/><br/>
+<br/>
 1. **dApps, for user Onboarding -** 
 <br/>
 Even Web 2 users can quickly flow into the service if they succeed in picking up dropped TONs .
@@ -43,13 +41,12 @@ Even Web 2 users can quickly flow into the service if they succeed in picking up
     
 **The Receiver**<br/>
 1. Pick up the sender’s dropped TONs. 
-<br/>
-1. Create a TON Keeper through Chatbot or WebApp in the Telegram chat room.
-<br/>
-1. Connect the wallet and claim the dropped TONs.
-<br/>  
 
-#Tonate Architecture
+1. Create a TON Keeper through Chatbot or WebApp in the Telegram chat room.
+
+1. Connect the wallet and claim the dropped TONs.
+
+# Tonate Architecture
 
 ![image](https://user-images.githubusercontent.com/60724296/225576771-42020711-d322-456e-9bdc-7ac352521ea5.png)
 
