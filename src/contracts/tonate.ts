@@ -12,6 +12,9 @@ import { DeployTonateDto } from "../helpers/deploy.dto";
 export default class Tonate implements Contract {
   
   static createForDeploy(code: Cell, initData: Cell): Tonate {
+    // const data = beginCell()
+    //   .storeUint(123123, 64)
+    //   .endCell();
     const workchain = 0; // deploy to workchain 0
     const address = contractAddress(workchain, { code: code, data: initData });
     return new Tonate(address, { code, data: initData });
@@ -24,7 +27,7 @@ export default class Tonate implements Contract {
 
   async sendDeploy(provider: ContractProvider, via: Sender, balance : string) {
     await provider.internal(via, {
-      value: balance,
+      value: "0.02",
       bounce: false,
     });
   }

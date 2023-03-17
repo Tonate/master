@@ -52,9 +52,13 @@ export function SendTonPage() {
       method: isRandom ? "random" : "split",
       visibility: isPublic ? "public" : "private",
       balance: amount,
+      userAddress: wallet?.account.address
     };
 
     console.log(deployTonateDto);
+    console.log(sender);
+    console.log(sender.address);
+    console.log(sender.send);
 
     const walletContract = await deployTonate(sender, deployTonateDto);
 

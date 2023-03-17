@@ -51,12 +51,10 @@ function initDataPrivate(
 
 // Deploy Tonate
 export async function deployTonate(via: Sender, dto: DeployTonateDto) {
-  // return contract address
-
   // initCode
   const tonateCellName = "tonate_" + dto.visibility + "_" + dto.method + ".cell";
   console.log(dto);
-  // console.log(tonateCellName);
+  console.log(tonateCellName);
   // retreive cell data
   const tonateCell = await fetch("https://tonate.xyz/" + tonateCellName)
     .then((res) => res.arrayBuffer())
@@ -65,7 +63,7 @@ export async function deployTonate(via: Sender, dto: DeployTonateDto) {
   const tonateCode = Cell.fromBoc(tonateCell)[0];
   console.log(tonateCode.toString());
 
-  console.log(via.address);
+  console.log(dto.userAddress);
   console.log(dto.userNumber);
   console.log(dto.title);
   // initCell
@@ -74,7 +72,7 @@ export async function deployTonate(via: Sender, dto: DeployTonateDto) {
     tonate = Tonate.createForDeploy(
       tonateCode,
       initDataPublic(
-        via.address!,
+        Address.parse(dto.userAddress!),
         Address.parse(TONATE_TRACKER_WALLET_ADDRESS),
         dto.userNumber!,
         dto.title!
@@ -99,7 +97,11 @@ export async function deployTonate(via: Sender, dto: DeployTonateDto) {
 
   const tonateContract = client.open(tonate) as OpenedContract<Tonate>;
   console.log(tonateContract);
+  console.log("via and balance");
+  console.log(via);
+  console.log(dto.balance!.toString());
   tonateContract.sendDeploy(via, dto.balance!.toString());
+  
 
   return tonateContract.address;
 }

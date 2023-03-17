@@ -8,4 +8,6 @@ export class DeployTonateDto {
   visibility: string | undefined; // private or public
 
   balance: number | undefined;
+
+  userAddress: string | undefined;
 }
