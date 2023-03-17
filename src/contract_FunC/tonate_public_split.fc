@@ -107,3 +107,10 @@ int user_number() method_id {
     var (_, _, _, user_number, _) = load_data();
     return user_number;
 }
+
+slice title() method_id {
+    (slice owner_address, slice tracker_address, int counter, int user_number, cell comment) = load_data();
+    slice title = comment.begin_parse();
+    return title;
+}
+

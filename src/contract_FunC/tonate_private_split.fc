@@ -86,16 +86,22 @@ var balance() method_id {
 }
 
 slice address() method_id {
-    var (owner_address, _, _, _, _) = load_data();
+    var (owner_address, _, _, _) = load_data();
     return owner_address;
 }
 
 int counter() method_id {
-    var (_, _, counter, _, _) = load_data();
+    var (_, _, counter, _) = load_data();
     return counter;
 }
 
 int user_number() method_id {
-    var (_, _, _, user_number, _) = load_data();
+    var (_, _, user_number, _) = load_data();
     return user_number;
+}
+
+slice title() method_id {
+    (slice owner_address, int counter, int user_number, cell comment) = load_data();
+    slice title = comment.begin_parse();
+    return title;
 }
