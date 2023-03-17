@@ -70,15 +70,17 @@ export function ReceiveTonPage() {
     try {
     const tonate = new Tonate(Address.parse(address));
     const tonateContract = client.open(tonate) as OpenedContract<Tonate>;
-
-    const value = await tonateContract.getBalance();
-    const title = await tonateContract.getTitle();
+    const ton = await client?.getBalance(Address.parse(address));
+    const value =  (Number.parseFloat(ton.toString()) / 1000000000).toFixed(10);
+    // const value = await tonateContract.getBalance();
+    // const title = await tonateContract.getTitle();
 
 
     setTonate ( 
         {
             value: Number(value),
-            title: title.replace("\x00\x00\x00\x00", ""),
+            title: "",
+            // title: title.replace("\x00\x00\x00\x00", ""),
             address: tonateContract?.address.toString(),
             sendReceiveTon: () => {
                 return tonateContract?.sendReceiveTon(sender);

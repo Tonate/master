@@ -23,7 +23,7 @@ export const TonateHistoryBox: FC<TonateHistoryBoxProps> = ({
           <span>{tonate.title}</span>
           <span>{tonate.address}</span>
           {/* tonate 받은 금액  */}
-          <span>500 TON</span>
+          {/* <span>500 TON</span> */}
         </div>
       </div>
     </div>
