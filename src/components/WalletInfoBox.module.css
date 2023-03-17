@@ -41,7 +41,7 @@
   background-image: url("../assets/profile_img.png");
 }
 
-.walletInfoBox .memberTonateHistory > div:first-child {
+.walletInfoBox .memberTonateHistory .header {
   display: flex;
   justify-content: space-between;
   font-weight: 700;
@@ -50,7 +50,7 @@
   margin-bottom: 8px;
 }
 
-.walletInfoBox .memberTonateHistory > div:nth-child(2) {
+.walletInfoBox .memberTonateHistory .histories {
   display: flex;
   flex-direction: column;
   gap: 6px;

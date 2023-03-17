@@ -1,22 +1,29 @@
+import { useTonateContract } from "@/hooks/userTonateContract";
+import { Tonate } from "@/types";
 import { FC } from "react";
 
 import styles from "./TonateHistoryBox.module.css";
 
 interface TonateHistoryBoxProps {
-  tonateHistory: any;
+  tonateAddress: string;
 }
 
 export const TonateHistoryBox: FC<TonateHistoryBoxProps> = ({
-  tonateHistory,
+  tonateAddress,
 }) => {
+  const tonate = useTonateContract(tonateAddress);
+
+  console.log(tonate);
+
   return (
-    <div className={styles.tonateHistoryBox}>
-      <div>
+    <div className={styles.tonateHistoryBoxWrapper}>
+      <div className={styles.tonateHistoryBox}>
         <div className={styles.tonImage}></div>
         <div className={styles.tonateInfo}>
-          <span>채팅방이름?</span>
-          <span>EQD2...G2IN</span>
-          <span>500 TON | 30 person</span>
+          <span>{tonate.title}</span>
+          <span>{tonate.address}</span>
+          {/* tonate 받은 금액  */}
+          <span>500 TON</span>
         </div>
       </div>
     </div>
