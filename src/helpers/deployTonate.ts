@@ -56,7 +56,7 @@ export async function deploy() {
   }
 
   const tonateCell = await fetch(
-    "https://tonate.s3.ap-northeast-2.amazonaws.com/tonate.cell"
+    "https://tonate.xyz/tonate.cell"
   )
     .then((res) => res.arrayBuffer())
     .then((arrayBuffer) => {

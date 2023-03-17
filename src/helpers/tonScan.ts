@@ -95,6 +95,7 @@ async function filterTonateAddress(incomingAddressList: Array<string>) {
 
   return tonateAddressList
     .filter((result) => result.status === "fulfilled")
+  //@ts-ignore
     .map((promise) => promise.value);
 }
 

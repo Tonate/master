@@ -30,7 +30,7 @@ export function TonateHistoryPage() {
 
       <div className={styles.title}>Receive List</div>
 
-      <ReceivedTonateBox />
+      {/* <ReceivedTonateBox /> */}
     </div>
   );
 }
