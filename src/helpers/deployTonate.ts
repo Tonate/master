@@ -21,7 +21,7 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-function initData(
+function initDataPublic(
   ownerAddress: Address,
   tonTrackerAddress: Address,
   userNumber: number,
@@ -30,6 +30,19 @@ function initData(
   return beginCell()
     .storeAddress(ownerAddress)
     .storeAddress(tonTrackerAddress)
+    .storeUint(Date.now(), 64)
+    .storeUint(userNumber, 64)
+    .storeRef(comment(title))
+    .endCell();
+}
+
+function initDataPrivate(
+  ownerAddress: Address,
+  userNumber: number,
+  title: string
+): Cell {
+  return beginCell()
+    .storeAddress(ownerAddress)
     .storeUint(Date.now(), 64)
     .storeUint(userNumber, 64)
     .storeRef(comment(title))
@@ -60,15 +73,28 @@ export async function deployTonate(via: Sender, dto: DeployTonateDto) {
   const tonateCode = Cell.fromBoc(tonateCell)[0];
 
   // initCell
-  const tonate = Tonate.createForDeploy(
-    tonateCode,
-    initData(
-      via.address!,
-      Address.parse(TONATE_TRACKER_WALLET_ADDRESS),
-      dto.userNumber!,
-      dto.title!
-    )
-  );
+  let tonate;
+  if (dto.visibility == "public"){
+    tonate = Tonate.createForDeploy(
+      tonateCode,
+      initDataPublic(
+        via.address!,
+        Address.parse(TONATE_TRACKER_WALLET_ADDRESS),
+        dto.userNumber!,
+        dto.title!
+      )
+    );
+  }
+  else{ // dto.visibility == "private"
+    tonate = Tonate.createForDeploy(
+      tonateCode,
+      initDataPrivate(
+        via.address!,
+        dto.userNumber!,
+        dto.title!
+      )
+    );
+  }
 
   // init client to make Open Contract
   const client = new TonClient({
@@ -121,11 +147,11 @@ export async function deploy() {
   console.log(tonateCode);
 
   const tonateTitle = "Tonate Team Fund";
+  
   const tonate = Tonate.createForDeploy(
     tonateCode,
-    initData(
+    initDataPrivate(
       wallet.address,
-      Address.parse(TONATE_TRACKER_WALLET_ADDRESS),
       1,
       tonateTitle
     )
