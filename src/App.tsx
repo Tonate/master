@@ -1,9 +1,9 @@
 import "./App.css";
 import "@twa-dev/sdk";
-import { TonatePage } from "./components/TonatePage";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router";
-import { SendTonPage } from "./components/SendTonPage";
+import { TonatePage } from "@/pages/TonatePage";
+import { SendTonPage } from "@/pages/SendTonPage";
 
 function App() {
   return (
