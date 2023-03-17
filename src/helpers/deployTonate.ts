@@ -9,8 +9,11 @@ import {
   Address,
   Slice,
   comment,
+  Sender,
+  OpenedContract,
 } from "ton";
 import Tonate from "../contracts/tonate"; // this is the interface class from step 7
+import { DeployTonateDto } from "./deploy.dto";
 
 const TONATE_TRACKER_WALLET_ADDRESS =
   "EQD95aQy4L1JhesahCd4broGOY4XNoxdkIDp-t12usfcgy1_";
@@ -22,14 +25,70 @@ function sleep(ms: number) {
 function initData(
   ownerAddress: Address,
   tonTrackerAddress: Address,
+  userNumber: number,
   title: string
 ): Cell {
   return beginCell()
     .storeAddress(ownerAddress)
     .storeAddress(tonTrackerAddress)
     .storeUint(Date.now(), 64)
+    .storeUint(userNumber, 64)
     .storeRef(comment(title))
     .endCell();
+}
+
+// Deploy Tonate 
+export async function deployTonate(via: Sender, dto: DeployTonateDto){ // return contract address
+
+  // initCode
+  let tonateCellName;
+  if(dto.visibility == "private" && dto.method == "random"){
+    tonateCellName = "tonate_private_random.cell";
+  }
+  else if(dto.visibility == "private" && dto.method == "split"){
+    tonateCellName = "tonate_private_split.cell";
+  }
+  else if(dto.visibility == "public" && dto.method == "random"){
+    tonateCellName = "tonate_public_random.cell";
+  }
+  else if(dto.visibility == "public" && dto.method == "split"){
+    tonateCellName = "tonate_public_split.cell";
+  }
+
+  // retreive cell data
+  const tonateCell = await fetch(
+    'https://tonate.xyz/' + tonateCellName
+  )
+    .then((res) => res.arrayBuffer())
+    .then((arrayBuffer) => {
+      console.log(arrayBuffer);
+
+      return new Buffer(arrayBuffer);
+    });
+
+  const tonateCode = Cell.fromBoc(tonateCell)[0];
+
+  // initCell
+  const tonate = Tonate.createForDeploy(
+    tonateCode,
+    initData(
+      via.address!,
+      Address.parse(TONATE_TRACKER_WALLET_ADDRESS),
+      dto.userNumber!,
+      dto.title!
+    )
+  );
+
+  // init client to make Open Contract
+  const client = new TonClient({
+    endpoint: await getHttpEndpoint({ network: 'testnet' }),
+  });
+
+  const tonateContract = client.open(tonate) as OpenedContract<Tonate>;
+
+  tonateContract.sendDeploy(via, dto.balance!.toString());
+
+  return tonate.address;
 }
 
 export async function deploy() {
@@ -78,6 +137,7 @@ export async function deploy() {
     initData(
       wallet.address,
       Address.parse(TONATE_TRACKER_WALLET_ADDRESS),
+      1,
       tonateTitle
     )
   );
@@ -98,7 +158,7 @@ export async function deploy() {
   const tonateContract = client.open(tonate);
 
   // send the deploy transaction
-  await tonateContract.sendDeploy(walletSender);
+  await tonateContract.sendDeploy(walletSender, 1);
 
   // send Ton Eat transaction
   // const tonateAddress = Address.parse("EQAtii2cWTG_9k9wIfFSF-Tg1ZSl3jTa8SWyUuJ7VY76iLNj");
