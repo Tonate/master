@@ -1,14 +1,11 @@
 export class DeployTonateDto {
-    title: string | undefined;
+  title: string | undefined;
 
-    amount: string | undefined;
+  userNumber: number | undefined;
 
-    userNumber: number | undefined;
+  method: string | undefined; // random or split
 
-    method: string | undefined; // random or split
+  visibility: string | undefined; // private or public
 
-    visibility: string | undefined; // private or public
-
-    balance: number | undefined;
-
+  balance: number | undefined;
 }

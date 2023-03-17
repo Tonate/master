@@ -1,4 +1,3 @@
-import * as fs from "fs";
 import { getHttpEndpoint } from "@orbs-network/ton-access";
 import { mnemonicToWalletKey } from "ton-crypto";
 import {
@@ -37,34 +36,26 @@ function initData(
     .endCell();
 }
 
-// Deploy Tonate 
-export async function deployTonate(via: Sender, dto: DeployTonateDto){ // return contract address
+// Deploy Tonate
+export async function deployTonate(via: Sender, dto: DeployTonateDto) {
+  // return contract address
 
   // initCode
   let tonateCellName;
-  if(dto.visibility == "private" && dto.method == "random"){
+  if (dto.visibility == "private" && dto.method == "random") {
     tonateCellName = "tonate_private_random.cell";
-  }
-  else if(dto.visibility == "private" && dto.method == "split"){
+  } else if (dto.visibility == "private" && dto.method == "split") {
     tonateCellName = "tonate_private_split.cell";
-  }
-  else if(dto.visibility == "public" && dto.method == "random"){
+  } else if (dto.visibility == "public" && dto.method == "random") {
     tonateCellName = "tonate_public_random.cell";
-  }
-  else if(dto.visibility == "public" && dto.method == "split"){
+  } else if (dto.visibility == "public" && dto.method == "split") {
     tonateCellName = "tonate_public_split.cell";
   }
 
   // retreive cell data
-  const tonateCell = await fetch(
-    'https://tonate.xyz/' + tonateCellName
-  )
+  const tonateCell = await fetch("https://tonate.xyz/" + tonateCellName)
     .then((res) => res.arrayBuffer())
-    .then((arrayBuffer) => {
-      console.log(arrayBuffer);
-
-      return new Buffer(arrayBuffer);
-    });
+    .then((arrayBuffer) => Buffer.from(arrayBuffer));
 
   const tonateCode = Cell.fromBoc(tonateCell)[0];
 
@@ -81,7 +72,7 @@ export async function deployTonate(via: Sender, dto: DeployTonateDto){ // return
 
   // init client to make Open Contract
   const client = new TonClient({
-    endpoint: await getHttpEndpoint({ network: 'testnet' }),
+    endpoint: await getHttpEndpoint({ network: "testnet" }),
   });
 
   const tonateContract = client.open(tonate) as OpenedContract<Tonate>;
@@ -114,9 +105,7 @@ export async function deploy() {
     return console.log("wallet is not deployed");
   }
 
-  const tonateCell = await fetch(
-    "https://tonate.xyz/tonate.cell"
-  )
+  const tonateCell = await fetch("https://tonate.xyz/tonate.cell")
     .then((res) => res.arrayBuffer())
     .then((arrayBuffer) => {
       console.log(arrayBuffer);
