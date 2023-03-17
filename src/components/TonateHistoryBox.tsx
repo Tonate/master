@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { RightArrow } from "@/components/icon";
 
 import styles from "./TonateHistoryBox.module.css";
 
@@ -20,7 +19,6 @@ export const TonateHistoryBox: FC<TonateHistoryBoxProps> = ({
           <span>500 TON | 30 person</span>
         </div>
       </div>
-      <RightArrow />
     </div>
   );
 };

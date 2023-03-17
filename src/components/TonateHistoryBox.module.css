@@ -12,7 +12,7 @@
 .tonateHistoryBox > div:first-child {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 15px;
 }
 
 .tonImage {

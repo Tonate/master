@@ -4,6 +4,7 @@ import { useTonWallet } from "@tonconnect/ui-react";
 import { useTonClient } from "@/hooks/useTonClient";
 import { LeftArrow } from "@/components/icon";
 import { Toggle, TonateConfirmModal } from "@/components";
+import { deploy } from "@/helpers/deployTonate";
 
 import styles from "./SendTonPage.module.css";
 
@@ -18,10 +19,16 @@ export function SendTonPage() {
     navigate("/");
   };
 
-  const createTonate = () => {
-    console.log("톤 뿌리기!!");
+  const createTonate = async () => {
+    console.log("톤 뿌리기 시작!");
     // @TODO - 톤 뿌리기 스컨 생성 후 메인화면으로 전송
     // create tonate API
+    const walletContract = await deploy();
+
+    console.log("톤 뿌리기 완!");
+
+    console.log(walletContract);
+
     setCreatedTonateUrl("https://tonate.io/내가만든쿠키/너를위해구웠지");
     setIsVisibleConfirmModal(true);
     // navigate('/')
@@ -57,7 +64,7 @@ export function SendTonPage() {
         </div>
         <div className={styles.method}>
           <span>Method</span>
-          <Toggle leftText="Random" rightText="Spit" />
+          <Toggle leftText="Random" rightText="Split" />
         </div>
       </div>
 
