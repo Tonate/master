@@ -5,8 +5,8 @@ import { useTonClient } from "@/hooks/useTonClient";
 import { useTonConnect } from "@/hooks/useTonConnect";
 import { Checkbox, LeftArrow, SelectedCheckbox } from "@/components/icon";
 import { Toggle, TonateConfirmModal } from "@/components";
-import { deployTonate } from "@/helpers/deployTonate";
-import { Address } from "ton-core";
+import { deployTonate, deploy } from "@/helpers/deployTonate";
+import { Address, Sender } from "ton-core";
 
 import styles from "./SendTonPage.module.css";
 import { DeployTonateDto } from "@/helpers/deploy.dto";
@@ -60,12 +60,11 @@ export function SendTonPage() {
     console.log(sender.address);
     console.log(sender.send);
 
-    const walletContract = await deployTonate(sender, deployTonateDto);
+    // const walletContract = await deployTonate(sender, deployTonateDto);
+    const walletContract = await deploy(sender, deployTonateDto);
 
     console.log("톤 뿌리기 완!");
     console.log("test");
-
-    console.log(walletContract.toString());
 
     setCreatedTonateUrl("/share " + walletContract);
     setIsVisibleConfirmModal(true);
@@ -166,3 +165,4 @@ export function SendTonPage() {
     </div>
   );
 }
+
