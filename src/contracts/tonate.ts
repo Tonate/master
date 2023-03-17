@@ -7,12 +7,11 @@ import {
   contractAddress,
   beginCell,
 } from "ton-core";
+import { DeployTonateDto } from "../helpers/deploy.dto";
 
 export default class Tonate implements Contract {
+  
   static createForDeploy(code: Cell, initData: Cell): Tonate {
-    // const data = beginCell()
-    //   .storeUint(initialCounterValue, 64)
-    //   .endCell();
     const workchain = 0; // deploy to workchain 0
     const address = contractAddress(workchain, { code: code, data: initData });
     return new Tonate(address, { code, data: initData });
@@ -23,9 +22,9 @@ export default class Tonate implements Contract {
     readonly init?: { code: Cell; data: Cell }
   ) {}
 
-  async sendDeploy(provider: ContractProvider, via: Sender) {
+  async sendDeploy(provider: ContractProvider, via: Sender, balance : string) {
     await provider.internal(via, {
-      value: "0.02",
+      value: balance,
       bounce: false,
     });
   }

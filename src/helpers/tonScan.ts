@@ -67,6 +67,8 @@ async function parseIncommingTransactions(transactions: Array<trasactionDto>) {
   return incommingAddressList;
 }
 
+// filter outgoing transaction which can be found as tonate deploy
+// include TON which is more than MAX gas fee could be deploy transaction
 async function parseOutgoingTransactions(transactions: Array<trasactionDto>) {
   let outgoingAddressList: Array<string> = [];
 
@@ -115,6 +117,7 @@ async function checkIsTonate(address: string, client: TonClient) {
   return counter === BigInt(0) ? address : null;
 }
 
+// scan all address that have sent 1 nano TON to tonate trakcer wallet during deployment
 export async function scanTonateContractAddressAll() {
   // Get all trasactions of TonateTrackerWallet
   const transactions = await getTransactions(TONATE_TRACKER_WALLET_ADDRESS);
@@ -128,6 +131,7 @@ export async function scanTonateContractAddressAll() {
   return tonateIncomingSmartcontractAddress;
 }
 
+// scan all address of tonate smart contract that user have received from
 export async function scanContractAddressMypageRecieved(userAddress: string) {
   const transactions = await getTransactions(userAddress);
   const IncommingAddress = await parseIncommingTransactions(transactions);
@@ -137,6 +141,7 @@ export async function scanContractAddressMypageRecieved(userAddress: string) {
   return tonateIncomingSmartcontractAddress;
 }
 
+// scan all address of tonate smartcontract that I have deployed.
 export async function scanContractAddressMypageTonated(userAddress: string) {
   // Get all trasactions of TonateTrackerWallet
   const transactions = await getTransactions(userAddress);
