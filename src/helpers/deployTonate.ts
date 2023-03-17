@@ -62,7 +62,11 @@ export async function deployTonate(via: Sender, dto: DeployTonateDto) {
     .then((arrayBuffer) => Buffer.from(arrayBuffer));
 
   const tonateCode = Cell.fromBoc(tonateCell)[0];
+  console.log(tonateCode.toString());
 
+  console.log(via.address);
+  console.log(dto.userNumber);
+  console.log(dto.title);
   // initCell
   let tonate;
   if (dto.visibility == "public"){
@@ -100,3 +104,4 @@ export async function deployTonate(via: Sender, dto: DeployTonateDto) {
 }
 
 // deploy();
+
