@@ -14,6 +14,9 @@ export function SendTonPage() {
   const wallet = useTonWallet();
   const [createdTonateUrl, setCreatedTonateUrl] = useState("");
   const [isVisibleConfirmModal, setIsVisibleConfirmModal] = useState(false);
+  const [gasFee, setGasFee] = useState(0.0001);
+  const [amount, setAmount] = useState(0.0);
+  const [person, setPerson] = useState(0);
 
   const routeToMainPage = () => {
     navigate("/");
@@ -51,14 +54,18 @@ export function SendTonPage() {
         <div className={styles.quantity}>
           <span>Quantity</span>
           <div className={styles.sendTonateInput}>
-            <input type="text"></input>
+            <input type="number" 
+              onChange={(v) => {setPerson(Number(v.target.value))}}
+              defaultValue={person}></input>
             <div className={styles.placeholder}>person</div>
           </div>
         </div>
         <div className={styles.amount}>
           <span>Amount</span>
           <div className={styles.sendTonateInput}>
-            <input type="text"></input>
+            <input type="number" 
+              onChange={(v) => {setAmount(Number(v.target.value))}} 
+              defaultValue={amount}></input>
             <div className={styles.placeholder}>TON</div>
           </div>
         </div>
@@ -71,12 +78,12 @@ export function SendTonPage() {
       <div className={styles.tonateSummary}>
         <div>
           <span>Gas Fee</span>
-          <span>0.3 TON</span>
+          <span>{gasFee} TON</span>
         </div>
         <hr />
         <div>
           <span>TOTAL</span>
-          <span>30.3 TON</span>
+          <span>{gasFee + amount} TON</span>
         </div>
       </div>
 
