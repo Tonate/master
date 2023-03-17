@@ -3,7 +3,6 @@ export interface WalletInfo {
     ton: string;
     dollar: string;
   };
-  tonateHistoryList: any;
 }
 
 export interface Tonate {

@@ -7,14 +7,17 @@ import styles from "./WalletInfoBox.module.css";
 
 interface WalletInfoBoxProps {
   walletInfo: WalletInfo;
+  tonateAddressList: string[];
 }
 
-export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
+export const WalletInfoBox: FC<WalletInfoBoxProps> = ({
+  walletInfo,
+  tonateAddressList,
+}) => {
   const navigate = useNavigate();
 
   const {
     balance: { ton, dollar },
-    tonateHistoryList,
   } = walletInfo;
 
   const routeToSendTonateHistoryPage = () => {
@@ -37,7 +40,7 @@ export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
       </div>
 
       <div className={styles.memberTonateHistory}>
-        <div>
+        <div className={styles.header}>
           <span>TONate History</span>
           <span
             className={styles.moreButton}
@@ -46,12 +49,12 @@ export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
             {"More>"}
           </span>
         </div>
-        <div>
-          {tonateHistoryList.map((tonateHistory: number) => {
+        <div className={styles.histories}>
+          {tonateAddressList.map((tonateAddress) => {
             return (
               <TonateHistoryBox
-                key={tonateHistory}
-                tonateHistory={tonateHistory}
+                key={tonateAddress}
+                tonateAddress={tonateAddress}
               ></TonateHistoryBox>
             );
           })}
