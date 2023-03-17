@@ -89,13 +89,13 @@ async function filterTonateAddress(incomingAddressList: Array<string>) {
   const endpoint = await getHttpEndpoint({ network: "testnet" });
   const client = new TonClient({ endpoint });
 
-  const tonateAddressList = await Promise.all(
-    incomingAddressList
-      .map((address) => checkIsTonate(address, client))
-      .filter(Boolean)
+  const tonateAddressList = await Promise.allSettled(
+    incomingAddressList.map((address) => checkIsTonate(address, client))
   );
 
-  return tonateAddressList;
+  return tonateAddressList
+    .filter((result) => result.status === "fulfilled")
+    .map((promise) => promise.value);
 }
 
 // if counter is 0, then it is Tonate smartcontract (can be updated)
@@ -111,7 +111,7 @@ async function checkIsTonate(address: string, client: TonClient) {
     throw e;
   }
 
-  return counter === BigInt(0) ? address : "";
+  return counter === BigInt(0) ? address : null;
 }
 
 export async function scanTonateContractAddressAll() {

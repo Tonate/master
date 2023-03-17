@@ -20,110 +20,12 @@
 }
 
 .title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 5px;
-  margin-bottom: 15px;
-}
-
-.title {
+  margin-bottom: 24px;
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 700;
   font-size: 26px;
   line-height: 38px;
-}
-
-.sendTonateInfoBox {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 335px;
-  height: 297px;
-  padding: 24px;
-  margin-bottom: 16px;
-  border-radius: 20px;
-  background-color: #181c23;
-}
-
-.quantity {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.amount {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.sendTonateInput {
-  position: relative;
-}
-
-.sendTonateInput input {
-  width: 287px;
-  height: 42px;
-  border: none;
-  border-radius: 10px;
-  padding-left: 16px;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  color: #fff;
-  background-color: #2a313e;
-}
-
-.quantity .sendTonateInput input {
-  padding-right: 70px;
-}
-
-.amount .sendTonateInput input {
-  padding-right: 50px;
-}
-
-.sendTonateInput .placeholder {
-  position: absolute;
-  top: 11px;
-  right: 16px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 16px;
-  color: #9d9d9d;
-  user-select: none;
-}
-
-.method {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.tonateSummary {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 130px;
-  padding: 16px 24px;
-  width: 335px;
-  height: 101px;
-  border-radius: 20px;
-  background: #181c23;
-}
-
-.tonateSummary div:nth-child(1) {
-  display: flex;
-  justify-content: space-between;
-}
-
-.tonateSummary div:nth-child(3) {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
 }
 
 .tonateSummary hr {

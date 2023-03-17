@@ -17,6 +17,10 @@ export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
     tonateHistoryList,
   } = walletInfo;
 
+  const routeToSendTonateHistoryPage = () => {
+    navigate("/history");
+  };
+
   const routeToSendTonPage = () => {
     navigate("/send");
   };
@@ -35,8 +39,11 @@ export const WalletInfoBox: FC<WalletInfoBoxProps> = ({ walletInfo }) => {
       <div className={styles.memberTonateHistory}>
         <div>
           <span>TONate History</span>
-          <span>
-            <a>{"More>"}</a>
+          <span
+            className={styles.moreButton}
+            onClick={routeToSendTonateHistoryPage}
+          >
+            {"More>"}
           </span>
         </div>
         <div>
