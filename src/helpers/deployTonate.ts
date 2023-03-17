@@ -55,8 +55,8 @@ export async function deployTonate(via: Sender, dto: DeployTonateDto) {
 
   // initCode
   const tonateCellName = "tonate_" + dto.visibility + "_" + dto.method + ".cell";
-  console.log(tonateCellName);
   console.log(dto);
+  // console.log(tonateCellName);
   // retreive cell data
   const tonateCell = await fetch("https://tonate.xyz/" + tonateCellName)
     .then((res) => res.arrayBuffer())

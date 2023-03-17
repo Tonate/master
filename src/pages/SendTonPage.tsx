@@ -59,6 +59,7 @@ export function SendTonPage() {
     const walletContract = await deployTonate(sender, deployTonateDto);
 
     console.log("톤 뿌리기 완!");
+    console.log("test");
 
     console.log(walletContract.toString());
 
