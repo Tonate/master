@@ -5,7 +5,8 @@ import { Address } from "ton-core";
 import Tonate from "../contracts/tonate";
 
 const TONSCAN_API_URL = "https://testnet.tonapi.io/v1/blockchain";
-const TONATE_TRACKER_WALLET_ADDRESS = "EQCNu093HYrzqh_OUpv-ouZY3SaIKlwotrjl7DNyvgVNHclP";
+const TONATE_TRACKER_WALLET_ADDRESS =
+  "EQCNu093HYrzqh_OUpv-ouZY3SaIKlwotrjl7DNyvgVNHclP";
 const TONATE_MIN_AMOUNT = 10000000;
 
 interface msg_ton {
@@ -68,16 +69,19 @@ async function parseIncommingTransactions(transactions: Array<trasactionDto>) {
 
 async function parseOutgoingTransactions(transactions: Array<trasactionDto>) {
   let outgoingAddressList: Array<string> = [];
-  
+
   transactions.forEach((trx) => {
-    const outMsg =trx.out_msgs;
-    if (outMsg.length==1 && outMsg[0]?.value >= TONATE_MIN_AMOUNT && outMsg[0]?.destination?.address) {
+    const outMsg = trx.out_msgs;
+    if (
+      outMsg.length == 1 &&
+      outMsg[0]?.value >= TONATE_MIN_AMOUNT &&
+      outMsg[0]?.destination?.address
+    ) {
       outgoingAddressList.push(outMsg[0]?.destination?.address);
     }
   });
   return outgoingAddressList;
 }
-
 
 // Filter only Tonate smartcontract from all incoming address by calling tonate specific caller
 // if the smartconract doesn't provide that caller, then it is not a tonate smartcontract
@@ -85,78 +89,79 @@ async function filterTonateAddress(incomingAddressList: Array<string>) {
   const endpoint = await getHttpEndpoint({ network: "testnet" });
   const client = new TonClient({ endpoint });
 
-  let tonateAddressList = await Promise.allSettled(
-    incomingAddressList.map(
-      (address) => checkIsTonate(address, client)
-    )
+  const tonateAddressList = await Promise.all(
+    incomingAddressList
+      .map((address) => checkIsTonate(address, client))
+      .filter(Boolean)
   );
-  
-  tonateAddressList = tonateAddressList.filter((element) => {
-    return (element.status == 'fulfilled' && element.value);
-  });
 
   return tonateAddressList;
 }
 
 // if counter is 0, then it is Tonate smartcontract (can be updated)
-async function checkIsTonate(address : string, client : TonClient){
-    const contractAddress = Address.parse(address);
-    const tonate = new Tonate(contractAddress);
-    const tonateContract = client.open(tonate);
-    let counter;
-    try {
-      counter = await tonateContract.getCounter();
-    } catch (e) {
-      throw e;
-    }
-    if (counter == BigInt(0)) {
-      return address;
-    }
-    return null;
+async function checkIsTonate(address: string, client: TonClient) {
+  const contractAddress = Address.parse(address);
+  const tonate = new Tonate(contractAddress);
+  const tonateContract = client.open(tonate);
+  let counter;
+
+  try {
+    counter = await tonateContract.getCounter();
+  } catch (e) {
+    throw e;
   }
 
-export async function scanTonateContractAddressAll(tonateTrackerAddress : string) {
+  return counter === BigInt(0) ? address : "";
+}
+
+export async function scanTonateContractAddressAll() {
   // Get all trasactions of TonateTrackerWallet
-  const transactions = await getTransactions(tonateTrackerAddress);
+  const transactions = await getTransactions(TONATE_TRACKER_WALLET_ADDRESS);
   // Parse all smartcontract address of transactions towared TonateTrackerWallet
   const tonateIncommingAddress = await parseIncommingTransactions(transactions);
   // Filter only Tonate smartcontract from all incoming address by calling tonate specific caller
   const tonateIncomingSmartcontractAddress = await filterTonateAddress(
     tonateIncommingAddress
   );
+
   return tonateIncomingSmartcontractAddress;
 }
 
-export async function scanContractAddressMypageRecieved(userAddress : string) {
+export async function scanContractAddressMypageRecieved(userAddress: string) {
   const transactions = await getTransactions(userAddress);
   const IncommingAddress = await parseIncommingTransactions(transactions);
-  const tonateIncomingSmartcontractAddress = await filterTonateAddress(IncommingAddress);
+  const tonateIncomingSmartcontractAddress = await filterTonateAddress(
+    IncommingAddress
+  );
   return tonateIncomingSmartcontractAddress;
 }
 
-export async function scanContractAddressMypageTonated(userAddress : string) {
+export async function scanContractAddressMypageTonated(userAddress: string) {
   // Get all trasactions of TonateTrackerWallet
   const transactions = await getTransactions(userAddress);
   const tonateOutgoingAddress = await parseOutgoingTransactions(transactions);
-  const tonateOutgoingSmartcontractAddress = await filterTonateAddress(tonateOutgoingAddress);
+  const tonateOutgoingSmartcontractAddress = await filterTonateAddress(
+    tonateOutgoingAddress
+  );
   return tonateOutgoingSmartcontractAddress;
 }
 
-async function main(){
-  const tonateContractAddressAll = await scanTonateContractAddressAll(TONATE_TRACKER_WALLET_ADDRESS);
-  console.log("[All Public Tonate Contract Address]")
+async function main() {
+  const tonateContractAddressAll = await scanTonateContractAddressAll();
+  console.log("[All Public Tonate Contract Address]");
   console.log(tonateContractAddressAll);
 
-  const myTonateRecievedAddressList = await scanContractAddressMypageRecieved("EQCsq-ATp2uOJtAla-wO4fIs1zx52pqYWava9RDgD7wlLPW6");
-  console.log("[My Recieved Tonate Contract Address]")
+  const myTonateRecievedAddressList = await scanContractAddressMypageRecieved(
+    "EQCsq-ATp2uOJtAla-wO4fIs1zx52pqYWava9RDgD7wlLPW6"
+  );
+  console.log("[My Recieved Tonate Contract Address]");
   console.log(myTonateRecievedAddressList);
 
-  const myTonateAddressList = await scanContractAddressMypageTonated("EQCsq-ATp2uOJtAla-wO4fIs1zx52pqYWava9RDgD7wlLPW6");
-  console.log("[My Tonate Contract Address]")
+  const myTonateAddressList = await scanContractAddressMypageTonated(
+    "EQCsq-ATp2uOJtAla-wO4fIs1zx52pqYWava9RDgD7wlLPW6"
+  );
+  console.log("[My Tonate Contract Address]");
   console.log(myTonateAddressList);
-
 }
 
-main();
-
-
+// main();

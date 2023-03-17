@@ -131,4 +131,4 @@ export async function deploy() {
   return walletContract;
 }
 
-deploy();
+// deploy();

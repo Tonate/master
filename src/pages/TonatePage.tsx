@@ -77,6 +77,7 @@ export function TonatePage() {
     async function scanTonateContractAddress() {
       setIsLoading(true);
       const tonateAddressList = await scanTonateContractAddressAll();
+
       setTonateContractAddressList(tonateAddressList);
       setIsLoading(false);
     }
