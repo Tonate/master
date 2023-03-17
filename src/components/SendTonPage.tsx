@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTonWallet } from "@tonconnect/ui-react";
 import { useTonClient } from "@/hooks/useTonClient";
@@ -7,16 +7,30 @@ import { Toggle, TonateConfirmModal } from "@/components";
 import { deploy } from "@/helpers/deployTonate";
 
 import styles from "./SendTonPage.module.css";
+import { Address } from "ton-core";
 
 export function SendTonPage() {
   const navigate = useNavigate();
   const client = useTonClient();
   const wallet = useTonWallet();
+  const [balance, setBalance] = useState('');
   const [createdTonateUrl, setCreatedTonateUrl] = useState("");
   const [isVisibleConfirmModal, setIsVisibleConfirmModal] = useState(false);
-  const [gasFee, setGasFee] = useState(0.0001);
+  const [gasFee, _] = useState(0.0001);
   const [amount, setAmount] = useState(0.0);
   const [person, setPerson] = useState(0);
+
+  useEffect(() => {
+    getBalance(wallet?.account.address ?? '');
+  }, [client, wallet])
+
+  const getBalance = async (address: string) => {
+    const nanoTon = await client?.getBalance(
+      Address.parse(address)
+    );
+
+    setBalance((Number.parseFloat(nanoTon?.toString()!) / 1000000000).toFixed(3))  ;
+  }
 
   const routeToMainPage = () => {
     navigate("/");
