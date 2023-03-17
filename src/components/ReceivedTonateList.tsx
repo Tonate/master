@@ -16,12 +16,10 @@ export const ReceivedTonateList: FC<ReceivedTonateListProps> = ({
     return useTonateContract(address);
   });
 
-  console.log(tonateList);
-
   return (
     <div className={styles.receivedTonateList}>
       {tonateList.map((tonate) => (
-        <ReceivedTonateBox tonate={tonate} />
+        <ReceivedTonateBox key={tonate.address} tonate={tonate} />
       ))}
     </div>
   );

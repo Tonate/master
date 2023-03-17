@@ -1,7 +1,8 @@
-.tonateHistoryBox {
+.tonateHistoryBoxWrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 303px;
   height: 86px;
   padding: 16px;
   gap: 8px;
@@ -9,7 +10,7 @@
   border-radius: 10px;
 }
 
-.tonateHistoryBox > div:first-child {
+.tonateHistoryBox {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -24,6 +25,8 @@
 .tonateInfo {
   display: flex;
   flex-direction: column;
+  width: 200px;
+  gap: 5px;
 }
 
 .tonateInfo span:nth-child(1) {
@@ -37,6 +40,9 @@
   font-size: 14px;
   line-height: 16px;
   color: #9d9d9d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tonateInfo span:nth-child(3) {

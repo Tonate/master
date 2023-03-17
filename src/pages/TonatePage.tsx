@@ -19,7 +19,6 @@ export function TonatePage() {
   >([]);
   const [walletInfo, setWalletInfo] = useState<WalletInfo>({
     balance: { ton: "0", dollar: "0" },
-    tonateHistoryList: [1, 2],
   });
   const [isLogin, setIsLogin] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +95,10 @@ export function TonatePage() {
       </div>
 
       {isLogin ? (
-        <WalletInfoBox walletInfo={walletInfo} />
+        <WalletInfoBox
+          walletInfo={walletInfo}
+          tonateAddressList={tonateContractAddressList.slice(0, 2)}
+        />
       ) : (
         <LoginBox></LoginBox>
       )}

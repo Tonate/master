@@ -48,7 +48,7 @@ export function SendTonPage() {
 
     const deployTonateDto: DeployTonateDto = {
       title: "New Tonate!",
-      userNumber: 3,
+      userNumber: person,
       method: isRandom ? "random" : "split",
       visibility: isPublic ? "public" : "private",
       balance: amount,
@@ -60,9 +60,9 @@ export function SendTonPage() {
 
     console.log("톤 뿌리기 완!");
 
-    console.log(walletContract);
+    console.log(walletContract.toString());
 
-    setCreatedTonateUrl("https://tonate.io/내가만든쿠키/너를위해구웠지");
+    setCreatedTonateUrl("/share " + walletContract);
     setIsVisibleConfirmModal(true);
     // navigate('/')
   };
@@ -97,7 +97,7 @@ export function SendTonPage() {
           {/* {isPublic && <SelectedCheckbox />} */}
           <input type="radio" checked={isPublic} onClick={selectPublic} />
           <span>Public</span>
-          {/* {isPublic && <Checkbox />} */}
+          <div style={{width: 16}}/>
           <input type="radio" checked={!isPublic} onClick={selectPrivate} />
           <span>Private</span>
         </div>
@@ -156,7 +156,7 @@ export function SendTonPage() {
       <TonateConfirmModal
         tonateUrl={createdTonateUrl}
         isOpen={isVisibleConfirmModal}
-        onClickConfirm={setIsVisibleConfirmModal}
+        onClickConfirm={routeToMainPage}
       />
     </div>
   );
